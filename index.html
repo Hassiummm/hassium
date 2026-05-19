@@ -3,13 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello</title>
-    
+    <title>Home</title>
     <link rel="stylesheet" href="https://unpkg.com/latex.css/style.min.css">
+    <style>
+        /* This styles the top navigation bar to look like your friend's */
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 2rem;
+            margin-bottom: 4rem;
+            font-family: sans-serif;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        nav a {
+            text-decoration: none;
+            color: #333;
+            letter-spacing: 1px;
+        }
+        nav a:hover {
+            color: #888;
+        }
+        /* Centers the Hello text */
+        .center-text {
+            text-align: center;
+            margin-top: 100px;
+        }
+    </style>
 </head>
 <body>
-    
-    <h1>Hello</h1>
+
+    <nav>
+        <a href="latex/">LATEX</a>
+        <a href="math/">MATH</a>
+        <a href="others/">OTHERS</a>
+    </nav>
+
+    <div class="center-text">
+        <h1>Hello!</h1>
+    </div>
 
 </body>
 </html>

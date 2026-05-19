@@ -1,0 +1,799 @@
+%%% Simple Format by Hassium, version 1.5.2 %%% 
+
+%%%%%%%%%%%%%%%%%%%%%
+%%%     Cursor    %%% 
+%%%    Parking    %%%    
+%%%      Lot      %%%
+%%%%%%%%%%%%%%%%%%%%%
+
+% 1. Packages
+\usepackage[T1]{fontenc}
+\usepackage[explicit]{titlesec}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amsthm,amssymb,amsfonts,mathrsfs,mathtools,nicematrix,chngcntr,centernot,ytableau,sansmath,tikz-cd,pgfplots,tikz-3dplot,dutchcal,mathpazo,spectralsequences,mathalpha}
+\usepackage{imakeidx,textcomp,tocloft,environ,setspace,geometry,enumerate,enumitem,blindtext,multicol,xcolor,fancyhdr,calligra,graphicx,etoolbox,wrapfig,pgfplots,mdframed,tabularx,lipsum,comment,csquotes,verbatim,transparent,scalerel,ragged2e,halloweenmath,manfnt,relsize,nameref,newpxtext}
+\usepackage[hidelinks]{hyperref}
+\usepackage{chemfig}
+
+% 2. General Commands
+
+% Add this line to enable warnings: chktex-file 1 chktex-file 8 chktex-file 9 chktex-file 11 chktex-file 12 chktex-file 13 chktex-file 14 chktex-file 15 chktex-file 17 chktex-file 18 chktex-file 26 chktex-file 31 chktex-file 36 chktex-file 40 chktex-file 44
+
+% This is a collection of my personal commands for math notes... :)
+\makeatletter
+\newcommand{\hcoverspace}[5]{%
+    \def\h@tp@vtop{#1}
+    \def\h@tp@afterrule{#2}
+    \def\h@tp@aftersmall{#3}
+    \def\h@tp@aftertitle{#4}
+    \def\h@tp@beforeauthor{#5}
+}
+\newcommand{\htitlepage}[5]{%
+    \begin{titlepage}
+        \thispagestyle{empty}
+        \centering
+        \vspace*{\h@tp@vtop}
+        \rule{0.7\textwidth}{0.5pt}
+        \vspace{\h@tp@afterrule}
+        \\
+        {\small #1\par}
+        \vspace{\h@tp@aftersmall}
+        {\Huge #2\par}
+        \vspace{\h@tp@aftertitle}
+        {\large #3\par}
+        \vspace{\h@tp@beforeauthor}
+        {#4}
+        \vspace{1cm}
+        \\
+        {\large #5\par}
+        \vfill
+        \rule{0.7\textwidth}{0.5pt}
+        \vspace{\h@tp@vtop}
+    \end{titlepage}
+}
+\newcommand{\hend}{
+    \newpage
+    \pagestyle{empty}
+    \nocite{*}
+    \bibliography{references}
+    \bibliographystyle{amsalpha}
+    \hindex
+}
+\newcommand{\hsetuph}{
+    \thispagestyle{empty}
+    \newgeometry{top=80pt,bottom=80pt,left=90pt,right=90pt}
+    \hsetup
+    \vspace{-0.75\baselineskip}
+    \htoc
+    \newpage
+    \restoregeometry
+    \hmain
+    \pagecountstart
+}
+\makeatother
+
+% Title (notes)
+\newcommand{\hsetup}{%
+    \thispagestyle{empty}
+    \begin{center}
+        \LARGE\bfseries\cfcmr{\htitle} \\
+        \vspace{3.5pt}
+        \normalsize\mdseries\texttt{\hauthor}
+    \end{center}
+    \normalsize
+}
+
+% Table of contents
+\renewcommand*{\contentsname}{}
+\cftsetindents{section}{1.5em}{2.3em}
+\renewcommand{\cftsecdotsep}{\cftdotsep}
+\newcounter{tocpart}
+\newcommand{\hpart}[1]{%
+    \stepcounter{tocpart}% Ticks the counter up by 1
+    \addcontentsline{toc}{part}{\Roman{tocpart}.\hspace{0.75em}#1}%
+}
+\cftsetindents{part}{0em}{1.5em}
+\newcommand{\htoc}{%
+    \tableofcontents
+    \thispagestyle{empty}
+}
+
+% Mainmatter: fancy header
+\renewcommand{\sectionmark}[1]{%
+  \markright{#1}%
+}
+\newcommand{\hmain}{%
+    \pagestyle{fancy}
+    \fancyhead[L]{\texttt{\hfauthor}}      
+    \fancyhead[R]{\texttt{p.\thepage}}
+    \fancyhead[C]{\texttt{\rightmark}}      
+    \renewcommand{\headrulewidth}{0.5pt}
+    \fancyfoot{}
+}
+
+% Mainmatter: homework
+\newcommand{\hhomework}{%
+    \pagestyle{fancy}
+    \fancyhead[L]{\texttt{\hauthor}}      
+    \fancyhead[R]{\texttt{p.\thepage}}
+    \fancyhead[C]{\texttt{\htitle}}      
+    \renewcommand{\headrulewidth}{0.5pt}
+    \fancyfoot{}
+}
+
+% Setup
+\newcommand{\hstart}{
+    \hsetup
+    \vspace{-0.75\baselineskip}
+    \htoc
+    \hmain
+}
+
+% Page geometry 
+\geometry{
+  letterpaper,
+  top=60pt,
+  bottom=60pt,
+  left=60pt,
+  right=60pt,
+  headheight=12pt,
+  headsep=1.25\baselineskip
+}
+\setstretch{1.25}
+
+% Section without numbering but appears in toc
+\makeatletter
+\newcommand\newsection[1]{%
+  \stepcounter{section}
+  \section*{#1}
+  \addcontentsline{toc}{section}{#1}
+}
+\makeatother
+
+% Backslash
+\newcommand{\bs}{\backslash}
+
+% Hyperlink on toc and section titles
+\newcommand{\sectionnumplain}{\arabic{section}}
+\titleformat{\section}
+{\large\bfseries\fontencoding{T1}\fontfamily{cmr}\selectfont}{\sectionnumplain}{1em}{\hyperlink{sec-\sectionnumplain}{#1}%
+\addtocontents{toc}{\protect\hypertarget{sec-\sectionnumplain}{}}}
+\titleformat{name=\section,numberless}
+{\large\bfseries\fontencoding{T1}\fontfamily{cmr}\selectfont}{}{0pt}{\hyperlink{toc}{#1}}
+
+% Description in table of contents
+\newcommand{\descr}[1]{%
+  \addtocontents{toc}{\medskip\noindent\detokenize{#1}\leavevmode\par\medskip}
+}
+
+% Table of contents counter
+\setcounter{tocdepth}{1}
+
+% Page counter reset
+\newcommand{\pagecountstart}{%
+  \setcounter{page}{1}%
+}
+
+% Index page
+\newcommand{\hdef}[1]{\cfd{#1}\index{#1}}
+\makeindex[columns=3,title=Alphabetical Index]
+\newcommand{\hindex}{%
+    \newpage
+    \pagenumbering{gobble}
+    \thispagestyle{empty}
+    \pagestyle{empty}
+    \hypertarget{sec-index}{}
+    \addtocontents{toc}{\protect\cftsetindents{section}{0em}{0em}}
+    \addtocontents{toc}{\protect\cftpagenumbersoff{section}}
+    \addcontentsline{toc}{section}{\bfseries\protect\hyperlink{sec-index}{Alphabetical Index}}
+    \addtocontents{toc}{\protect\cftpagenumberson{section}}
+    \addtocontents{toc}{\protect\cftsetindents{section}{1.5em}{2.3em}}
+    \printindex
+}
+
+% Reference page
+\newcommand{\hreference}[2]{
+    \newpage
+    \phantomsection 
+    \addtocontents{toc}{\protect\cftsetindents{section}{0em}{0em}}
+    \addtocontents{toc}{\protect\cftpagenumbersoff{section}}
+    \addcontentsline{toc}{section}{\bfseries References}
+    \addtocontents{toc}{\protect\cftpagenumberson{section}}
+    \addtocontents{toc}{\protect\cftsetindents{section}{1.5em}{2.3em}}
+    \nocite{*}
+    \bibliography{#1}
+    \bibliographystyle{#2}
+}
+
+% Circle
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{\node[shape=circle,draw,inner sep=0.5pt](char){#1};}}
+
+% Changem fonts
+\newcommand{\cfcmr}[1]{{\fontencoding{T1}\fontfamily{cmr}\selectfont #1}}
+\newcommand{\cfd}[1]{{\fontfamily{pzc}\selectfont #1}}
+\newcommand{\cfc}[1]{{\usefont{T1}{calligra}{m}{n}#1}} 
+\newcommand{\cft}[1]{\texttt{#1}}
+
+% Darkmode
+\newcommand{\darkhsetup}{%
+    \thispagestyle{empty}
+    \begin{center}
+        {\LARGE\bfseries\textcolor{white}{\htitle}} \\
+        \vspace{2pt}
+        {\small\texttt{\textcolor{white}{\hauthor}}}
+    \end{center} 
+    \normalsize
+}
+\newcommand{\darkhtoc}{
+    \renewcommand*{\contentsname}{}
+    \renewcommand{\cftsecfont}{\color{white}}        
+    \renewcommand{\cftsecpagefont}{\color{white}}    
+    \renewcommand{\cftsecpagefont}{\transparent{0}} 
+    \begin{multicols}{2}
+        \tableofcontents
+    \end{multicols}
+    \thispagestyle{empty}
+}
+\newcommand{\darkhmain}{
+    \pagestyle{fancy}
+    \pagecolor{black}
+    \color{white}     
+    \fancyhead[L]{\textcolor{white}{\texttt{\hfauthor}}}  
+    \fancyhead[R]{\textcolor{white}{\texttt{p.\thepage}}}
+    \fancyhead[C]{\textcolor{white}{\texttt{\htitle}}  }           
+    \renewcommand{\headrule}{\color{white}\hrule width\headwidth height0.5pt}
+    \fancyfoot{}
+}
+\newcommand{\darkhstart}{
+    \darkhsetup
+    \darkhtoc
+    \darkhmain
+}
+
+% Enumerate
+\setlist[enumerate]{topsep=0pt,itemsep=-1ex,partopsep=1ex,parsep=1ex}
+\newenvironment{level}{
+    \addtolength{\itemindent}{2em}}{
+    \addtolength{\itemindent}{-2em}
+}
+
+% Roman numberals
+\newcommand{\rom}{\romannumeral}
+
+% 3. Math
+
+% Normal Theorem styles
+\theoremstyle{definition}
+\newtheorem{baseDefinition}{Definition}[section]
+\newtheorem{baseTheorem}{Theorem}[section]
+\newtheorem{baseProposition}{Proposition}[section]
+\newtheorem{exercise}{Exercise}[section]
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{corollary}{Corollary}
+\newtheorem*{remark}{Remark}
+\newtheorem*{notation}{Notation}
+\newtheorem*{example}{Example}
+\newtheorem{problem}{Problem}[section]
+\newtheorem*{claim}{Claim}
+
+% Quote definitions/theorems/propositions
+\NewDocumentEnvironment{definition}{}
+  {\begin{baseDefinition}\label{def:\thebaseDefinition}}
+  {\end{baseDefinition}}
+
+\NewDocumentEnvironment{theorem}{ o }
+  {%
+    \IfNoValueTF{#1}%
+      {\begin{baseTheorem}}%
+      {\begin{baseTheorem}[#1]}%
+    \label{thm:\thebaseTheorem}%
+  }
+  {\end{baseTheorem}}
+
+\NewDocumentEnvironment{proposition}{}
+  {\begin{baseProposition}\label{prop:\thebaseProposition}}
+  {\end{baseProposition}}
+
+\newcommand{\quotedef}[1]{\hyperref[def:#1]{[Def~#1]}}
+\newcommand{\quotethm}[1]{\hyperref[thm:#1]{[Thm~#1]}}
+\newcommand{\quoteprop}[1]{\hyperref[prop:#1]{[Prop~#1]}}
+
+% Theorem styles in short note
+\theoremstyle{definition}
+\newtheorem{sdefinition}{Definition}
+\newtheorem{stheorem}{Theorem}
+\newtheorem{sproposition}{Proposition}
+
+% Proof sketch
+\newenvironment{sketch}{\begin{proof}[Proof Sketch]}{\end{proof}}
+
+% Example with ghost symbol ending
+\makeatletter
+\AtBeginEnvironment{example}{%
+  \pushQED{\qed}%
+  \renewcommand{\qedsymbol}{$\mathghost$}%
+}
+\AtEndEnvironment{example}{\popQED}
+\makeatother
+
+% Exercise with customization on numbering
+\newtheorem{questioninner}{Exercise}
+\newenvironment{exercise*}[1][]{%
+    \ifx\relax#1\relax\else\renewcommand{\thequestioninner}{#1}\fi 
+    \questioninner
+}{%
+}
+
+% Customize the name of a theorem environment
+\newcommand{\customtheorem}[1]{%
+    \expandafter\newtheorem\expandafter*{#1}{#1}%
+}
+
+% Environment in appendix
+\newtheorem{adefinition}{Definition}
+\renewcommand{\theadefinition}{A\arabic{adefinition}}
+\newtheorem{atheorem}{Theorem}
+\renewcommand{\theatheorem}{A\arabic{atheorem}}
+
+% Remove proofs by empty space
+\NewEnviron{reviewmode}{%
+    \let\visibleproof\proof
+    \let\endvisibleproof\endproof
+    \RenewEnviron{proof}{\phantom{}\\\ \\ \\}{}
+    \BODY
+    \let\proof\visibleproof
+    \let\endproof\endvisibleproof
+}
+
+% Quiver (Authors: varkor (https://github.com/varkor), AndréC (https://tex.stackexchange.com/users/138900/andr%C3%A9c))
+\usetikzlibrary{calc}
+\usetikzlibrary{decorations.pathmorphing}
+\tikzset{curve/.style={settings={#1},to path={(\tikztostart)
+    .. controls ($(\tikztostart)!\pv{pos}!(\tikztotarget)!\pv{height}!270:(\tikztotarget)$)
+    and ($(\tikztostart)!1-\pv{pos}!(\tikztotarget)!\pv{height}!270:(\tikztotarget)$)
+    .. (\tikztotarget)\tikztonodes}},
+    settings/.code={\tikzset{quiver/.cd,#1}
+        \def\pv##1{\pgfkeysvalueof{/tikz/quiver/##1}}},
+    quiver/.cd,pos/.initial=0.35,height/.initial=0}
+\tikzset{tail reversed/.code={\pgfsetarrowsstart{tikzcd to}}}
+\tikzset{2tail/.code={\pgfsetarrowsstart{Implies[reversed]}}}
+\tikzset{2tail reversed/.code={\pgfsetarrowsstart{Implies}}}
+\tikzset{no body/.style={/tikz/dash pattern=on 0 off 1mm}}
+
+% Arrows, maps, morphisms
+\newcommand{\ua}{\uparrow}
+\newcommand{\da}{\downarrow}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\La}{\Leftarrow}
+\newcommand{\Ua}{\Uparrow}
+\newcommand{\Da}{\Downarrow}
+\newcommand{\nRa}{\nRightarrow}
+\newcommand{\nLa}{\nLeftarrow}
+\newcommand{\hra}{\hookrightarrow}
+\newcommand{\hla}{\hookleftarrow}
+\newcommand{\lt}{\leadsto}
+\newcommand{\mt}{\mapsto}
+\newcommand{\rat}{\rightarrowtail}
+\newcommand{\lat}{\leftarrowtail}
+\newcommand{\thra}{\twoheadrightarrow}
+\newcommand{\thla}{\twoheadleftarrow}
+\newcommand{\bij}{\xrightarrow{\sim}}
+\newcommand{\Lra}{\Leftrightarrow}
+
+% Alternating algebra
+\DeclareMathOperator{\Alt}{Alt}
+
+% Annihilators
+\DeclareMathOperator{\Ann}{Ann}
+
+% Affine space
+\newcommand{\A}{\bb{A}}
+
+% Abelianization
+\DeclareMathOperator{\ab}{ab}
+
+% Binomial coefficient
+\newcommand{\bnc}[2]{\binom{#1}{#2}}
+
+% Boundary connected sum 
+\newcommand{\bcs}{\natural}
+
+% Cayley graph
+\DeclareMathOperator{\Cay}{Cay}
+% draw vertices uniformly: x,y,z axes, distance
+\newcommand{\points}[6]{%
+  \foreach \x in {0,...,\numexpr #1-1\relax} {
+    \foreach \y in {0,...,\numexpr #2-1\relax} {
+      \foreach \z in {0,...,\numexpr #3-1\relax} {
+        \filldraw[black] (#5*\y,#4*\x,#6*\z) circle (1pt);
+      }
+    }
+  }
+} 
+
+% Change font (math) 
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\ca}[1]{\mathcal{#1}}
+\newcommand{\fr}[1]{\mathfrak{#1}}
+\newcommand{\scr}[1]{\mathscr{#1}}
+
+% Composition of functions
+\newcommand{\comp}{~\raisebox{1pt}{\tikz \draw[line width=0.4pt] circle(1.1pt);}~}
+
+% Categorical notations
+\newcommand{\iso}{\approx}
+\newcommand{\niso}{\not\approx}
+\DeclareMathOperator{\Mor}{Mor}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Inn}{Inn}
+\DeclareMathOperator{\Out}{Out}
+\DeclareMathOperator{\Iso}{Iso}
+\DeclareMathOperator{\Ob}{Ob}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\cod}{cod}
+\DeclareMathOperator*{\colim}{colim}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathAlphabet{\mathdutchcal}{U}{dutchcal}{m}{n}
+\newcommand{\cat}[1]{\ensuremath{\mathdutchcal{#1}}}
+
+% CAT space
+\DeclareMathOperator{\CAT}{CAT}
+
+% Cardinality
+\newcommand{\card}[1]{\lvert{#1}\rvert}
+
+% Connected sum
+\newcommand*{\hash}{%
+  \begin{tikzpicture}
+    \pgfmathsetlengthmacro\myWidth{.8*width("=")}%
+    \pgfmathsetlengthmacro\myHeight{height("H")}%
+    \pgfmathsetlengthmacro\mySepY{.3333*\myWidth}%
+    \pgfmathsetlengthmacro\mySideBearing{.1*\myWidth}%
+    \def\myAngle{70}%
+    \pgfmathsetlengthmacro\mySepX{\mySepY/sin(\myAngle)}%
+    \pgfmathsetlengthmacro\mySlantX{\myHeight/tan(\myAngle)}%
+    \draw[line cap=round]
+      (0, {(\myHeight - \mySepY)/2}) -- ++(\myWidth, 0)
+      (0, {(\myHeight + \mySepY)/2}) -- ++(\myWidth, 0)
+      ({(\myWidth - \mySepX - \mySlantX)/2}, 0)
+      -- ({(\myWidth - \mySepX + \mySlantX)/2}, \myHeight)
+      ({(\myWidth + \mySepX - \mySlantX)/2}, 0)
+      -- ({(\myWidth + \mySepX + \mySlantX)/2}, \myHeight)
+    ;%
+    \useasboundingbox
+      (-\mySideBearing, 0)
+      (\myWidth + \mySideBearing, \myHeight)
+    ;% 
+  \end{tikzpicture}%
+}
+
+% Divisor, divisor class group
+\DeclareMathOperator{\Div}{Div}
+\DeclareMathOperator{\Cl}{Cl}
+
+% Distance
+\DeclareMathOperator{\dist}{dist}
+
+% Diagonal
+\DeclareMathOperator{\diag}{diag}
+
+% Diamond and square
+\newcommand{\sq}{\square}
+
+% Defined as
+\newcommand{\defa}{\coloneqq}
+
+% Derivative
+\newcommand{\pa}{\partial}
+\renewcommand{\d}{\mathrm{d}}
+
+% Ext and Tor
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Tor}{Tor}
+
+% Evaluation
+\DeclareMathOperator{\ev}{ev}
+
+% Floor
+\newcommand{\fl}[1]{\lfloor{#1}\rfloor}
+
+% Fraction field
+\DeclareMathOperator{\Frac}{Frac}
+
+% Functions (pgfplot)
+\pgfplotsset{compat=newest}
+\newcommand{\functiondraw}[5]{%
+    \begin{tikzpicture}[scale=#2]
+        \begin{axis}[hide axis]
+            \ifnumcomp{#1}{=}{2}{%
+                \addplot[
+                    thick,
+                    domain=#3:#4,
+                    samples=100
+                ]{#5};%
+            }{%
+                \addplot3[
+                    surf,
+                    shader=flat,
+                    draw=black,
+                    fill=white,
+                    domain=#3:#4,
+                    samples=40,
+                ]{#5};%
+            }%
+        \end{axis}
+    \end{tikzpicture}%
+}
+\newcommand{\multidraw}[3]{
+   \addplot[
+        thick,
+        domain=#1:#2,
+        samples=100
+        ]{#3};
+}
+
+% Greek and Hebrew letters
+\newcommand{\al}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\ga}{\gamma}
+\newcommand{\ep}{\epsilon}
+\newcommand{\de}{\delta}
+\newcommand{\si}{\sigma}
+\newcommand{\la}{\lambda}
+\newcommand{\ka}{\kappa}
+\newcommand{\om}{\omega}
+\newcommand{\Ga}{\Gamma}
+\newcommand{\De}{\Delta}
+\newcommand{\Si}{\Sigma}
+\newcommand{\LA}{\Lambda}
+\newcommand{\Om}{\Omega}
+\newcommand{\vt}{\vartheta}
+\newcommand{\vp}{\varphi}
+\newcommand{\ve}{\varepsilon}
+
+% Group action
+\newcommand{\acts}{\curvearrowright}
+
+% Galois group
+\DeclareMathOperator{\Gal}{Gal}
+
+% Groups generated by
+\newcommand{\cyc}[1]{\langle{#1}\rangle}
+
+% Height
+\DeclareMathOperator{\Ht}{ht}
+
+% Hat
+\newcommand{\wh}[1]{\widehat{#1}}
+
+% Holomorph
+\DeclareMathOperator{\Hol}{Hol}
+
+% Identity
+\DeclareMathOperator{\id}{id}
+
+% Image
+\DeclareMathOperator{\im}{im}
+
+% Inverse
+\newcommand{\inv}[1]{{#1}^{-1}}
+
+% Interior
+\DeclareMathOperator{\Int}{Int}
+
+% Letter by letter equality
+\newcommand{\eqc}{%
+    \mathrel{
+        \setbox0=\hbox{$-$}
+        \tikz[baseline=-0.26em]{ 
+        \draw[line width=0.5pt] (-0.5\wd0, 0.15em) -- (0.5\wd0, 0.15em);
+        \draw[line width=0.4pt] (0,0) circle (0.1em);
+        \draw[line width=0.5pt] (-0.5\wd0, -0.15em) -- (0.5\wd0, -0.15em);
+        }%
+    }%
+}
+
+% Modulo
+\renewcommand{\mod}{\ \text{mod}\ }
+
+% Norm
+\newcommand{\norm}[1]{\lVert{#1}\rVert}
+
+% Natural, rational, real, complex numbers, integers, fields
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+
+% Normal subgroup
+\newcommand{\nsg}{\trianglelefteq}
+
+% Otimes, oplus
+\newcommand{\ot}{\otimes}
+\newcommand{\op}{\oplus}
+
+% Odd and even
+\newcommand{\odd}{\text{odd}}
+\newcommand{\even}{\text{even}}
+
+% Order
+\DeclareMathOperator{\ord}{ord}
+
+% Projective space
+\newcommand{\Ps}[1]{{\mathbb{P}}^{#1}}
+\newcommand{\CP}[1]{{\mathbb{CP}}^{#1}}
+\newcommand{\RP}[1]{{\mathbb{RP}}^{#1}}
+
+% Projection
+\DeclareMathOperator{\proj}{proj}
+
+% Partial order
+\newcommand{\po}{\prec}
+\newcommand{\poe}{\preceq}
+
+% Range
+\DeclareMathOperator{\ran}{ran}
+
+% Sets and inclusions
+\newcommand{\sub}{\subset}
+\newcommand{\sube}{\subseteq}
+\newcommand{\sups}{\supset}
+\newcommand{\supe}{\supseteq}
+\newcommand{\nsub}{\centernot\subset}
+\newcommand{\nsup}{\centernot\supset}
+\newcommand{\nsube}{\centernot\subseteq}
+\newcommand{\nsupe}{\centernot\supseteq}
+\newcommand{\subn}{\subsetneq}
+\newcommand{\supn}{\supsetneq}
+\newcommand{\es}{\varnothing}
+\newcommand{\sm}{\setminus}
+\newcommand{\ps}{\mathscr{P}}
+\newcommand{\Un}{\bigcup}
+\newcommand{\In}{\bigcap}
+\newcommand{\du}{\sqcup}
+\newcommand{\Du}{\bigsqcup}
+\newcommand{\cp}{\amalg}
+\newcommand{\Cp}{\coprod}
+
+% Sign of permutation
+\DeclareMathOperator{\sgn}{sgn}
+
+% Semidirect product
+\newcommand{\sdp}{\rtimes}
+
+% Spectrum
+\DeclareMathOperator{\Spec}{Spec}
+
+% Sylow groups
+\DeclareMathOperator{\Syl}{Syl}
+
+% Several groups
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Mod}{Mod}
+\newcommand{\Sg}{\mathfrak{S}}
+\newcommand{\Ag}{\mathfrak{A}}
+
+% There exists a unique...
+\newcommand{\uni}{\exists\ \text{!}\ }
+
+% Transpose
+\newcommand{\tp}[1]{{#1}^{\top}}
+
+% Topological space
+\newcommand{\T}{\mathcal{T}}
+
+% Triangle 
+\newcommand{\tri}{\triangle}
+
+% Transcendence degree
+\DeclareMathOperator{\td}{tradg}
+
+% Tilde
+\newcommand{\wt}[1]{\widetilde{#1}}
+
+% Trace
+\DeclareMathOperator{\Tr}{Tr}
+
+% Wedge sum
+\newcommand{\Vee}{\bigvee}
+
+% Draw Words
+\newcommand{\worddraw}[3]{
+    \draw[thick] (0,0) -- (#1,0);
+    \foreach \x in {#2} {
+      \draw[thick] (\x, #3) -- (\x, 0);
+    }
+}
+\newcommand{\gworddraw}[6]{
+    \draw[thick] (#1,#2) -- (#3,#4);
+    \foreach \x in {#5} {
+      \draw[thick] (\x, #6) -- (\x, #2);
+    }
+}
+\newcommand{\braceunder}[4]{%
+    \draw[decorate,line width=0.8pt,decoration={brace,mirror,raise=#3,amplitude=5pt}]
+    (#1) -- (#2)
+    node[midway,below=6pt]{#4};
+}
+\newcommand{\braceover}[4]{%
+    \draw[decorate,line width=0.8pt,decoration={brace,raise=#3,amplitude=5pt}]
+    (#1) -- (#2)
+    node[midway,above=6pt]{#4};
+}
+
+% Wide bar (by Bryce)
+\makeatletter
+\let\save@mathaccent\mathaccent
+\newcommand*\if@single[3]{%
+ \setbox0\hbox{${\mathaccent"0362{#1}}^H$}%
+ \setbox2\hbox{${\mathaccent"0362{\kern0pt#1}}^H$}%
+ \ifdim\ht0=\ht2 #3\else #2\fi
+ }
+%The bar will be moved to the right by a half of \macc@kerna, which is computed by amsmath:
+\newcommand*\rel@kern[1]{\kern#1\dimexpr\macc@kerna}
+%If there's a superscript following the bar, then no negative kern may follow the bar;
+%an additional {} makes sure that the superscript is high enough in this case:
+\newcommand*\wb[1]{\@ifnextchar^{{\wide@bar{#1}{0}}}{\wide@bar{#1}{1}}}
+%Use a separate algorithm for single symbols:
+\newcommand*\wide@bar[2]{\if@single{#1}{\wide@bar@{#1}{#2}{1}}{\wide@bar@{#1}{#2}{2}}}
+\newcommand*\wide@bar@[3]{%
+ \begingroup
+ \def\mathaccent##1##2{%
+%Enable nesting of accents:
+ \let\mathaccent\save@mathaccent
+%If there's more than a single symbol, use the first character instead (see below):
+ \if#32 \let\macc@nucleus\first@char \fi
+%Determine the italic correction:
+ \setbox\z@\hbox{$\macc@style{\macc@nucleus}_{}$}%
+ \setbox\tw@\hbox{$\macc@style{\macc@nucleus}{}_{}$}%
+ \dimen@\wd\tw@
+ \advance\dimen@-\wd\z@
+%Now \dimen@ is the italic correction of the symbol.
+ \divide\dimen@ 3
+ \@tempdima\wd\tw@
+ \advance\@tempdima-\scriptspace
+%Now \@tempdima is the width of the symbol.
+ \divide\@tempdima 10
+ \advance\dimen@-\@tempdima
+%Now \dimen@ = (italic correction / 3) - (Breite / 10)
+ \ifdim\dimen@>\z@ \dimen@0pt\fi
+%The bar will be shortened in the case \dimen@<0 !
+ \rel@kern{0.6}\kern-\dimen@
+ \if#31
+ \overline{\rel@kern{-0.6}\kern\dimen@\macc@nucleus\rel@kern{0.4}\kern\dimen@}%
+ \advance\dimen@0.4\dimexpr\macc@kerna
+%Place the combined final kern (-\dimen@) if it is >0 or if a superscript follows:
+ \let\final@kern#2%
+ \ifdim\dimen@<\z@ \let\final@kern1\fi
+ \if\final@kern1 \kern-\dimen@\fi
+ \else
+ \overline{\rel@kern{-0.6}\kern\dimen@#1}%
+ \fi
+ }%
+ \macc@depth\@ne
+ \let\math@bgroup\@empty \let\math@egroup\macc@set@skewchar
+ \mathsurround\z@ \frozen@everymath{\mathgroup\macc@group\relax}%
+ \macc@set@skewchar\relax
+ \let\mathaccentV\macc@nested@a
+%The following initialises \macc@kerna and calls \mathaccent:
+ \if#31
+ \macc@nested@a\relax111{#1}%
+ \else
+%If the argument consists of more than one symbol, and if the first token is
+%a letter, use that letter for the computations:
+ \def\gobble@till@marker##1\endmarker{}%
+ \futurelet\first@char\gobble@till@marker#1\endmarker
+ \ifcat\noexpand\first@char A\else
+ \def\first@char{}%
+ \fi
+ \macc@nested@a\relax111{\first@char}%
+ \fi
+ \endgroup
+}
+\makeatother
+
+\endinput

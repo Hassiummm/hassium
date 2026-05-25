@@ -8,45 +8,45 @@
         body {
             max-width: 100%;
             margin-left: 0;
-            padding-left: 2rem; 
+            padding-left: 2rem;
         }
 
+        /* Adjusts text sizes */
         h2 {
-            font-size: 3rem;
+            font-size: 3rem; 
         }
-
         p {
-            font-size: 1.5rem;
+            font-size: 1.5rem; 
         }
-
-        nav {
-            display: flex;
-            justify-content: center;
-            gap: 100px;
+        .home-btn {
+            display: inline-block;
             margin-top: 2rem;
-            margin-bottom: 4rem;
+            margin-bottom: 2rem;
+            padding: 12px 24px;
+            background-color: #8b0000;
+            color: #ffffff;
+            text-decoration: none;
             font-family: sans-serif;
             font-weight: bold;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
+            border-radius: 6px;
+            letter-spacing: 1px;
+            transition: background-color 0.2s ease;
         }
-        nav a {
-            text-decoration: none;
-            color: #333;
-            letter-spacing: 2px;
-        }
-        nav a:hover {
-            color: #888;
+        
+        .home-btn:hover {
+            background-color: #5a0000;
+            color: #ffffff;
         }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="../">HOME</a>
-        <a href="../latex/">LATEX</a>
-        <a href="../math/">MATH</a>
-        <a href="../others/">OTHERS</a>
-    </nav>
-    <p>I made a simple LaTeX template. <a href="hassium.tex" download>Click here to download my LaTeX style v1.5.2</a> This style is uses pdfLaTeX editor.
+    
+    <a href="../" class="home-btn">← Back to Home</a>
+
+    <h2>My LaTeX Style</h2>
+    <p><a href="hassium.tex" download>Click here to download my LaTeX style v1.5.2</a></p>
     <p>Here is a Demo of the style</p>
+
 </body>
 </html>

@@ -2,41 +2,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Math</title>
+    <title>LaTeX</title>
     <link rel="stylesheet" href="https://unpkg.com/latex.css/style.min.css">
     <style>
-        nav {
-            display: flex;
-            justify-content: center;
-            gap: 100px;
-            margin-top: 2rem;
-            margin-bottom: 4rem;
-            font-family: sans-serif;
-            font-weight: bold;
-            font-size: 1.5rem;
+        body {
+            max-width: 100%;
+            margin-left: 0;
+            padding-left: 3rem;
         }
-        nav a {
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+        p {
+            font-size: 1.5rem; 
+            line-height: 2.2; 
+            margin-bottom: 2rem;
+        }
+        .back-btn {
+            display: inline-block;
+            margin-top: 3rem;
+            margin-bottom: 2rem;
+            padding: 10px 24px;
+            color: #000000;
             text-decoration: none;
-            color: #333;
-            letter-spacing: 2px;
+            font-family: inherit;
+            font-size: 1.2rem;
+            border: 1px solid #000000;
+            transition: all 0.2s ease;
         }
-        nav a:hover {
-            color: #888;
-        }
-        .center-text {
-            text-align: center;
-            margin-top: 100px;
+        .back-btn:hover {
+            background-color: #000000;
+            color: #ffffff;
         }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="../">HOME</a>
-        <a href="../latex/">LATEX</a>
-        <a href="../math/">MATH</a>
-        <a href="../others/">OTHERS</a>
-    </nav>
-
-    <p>notes</p>
+    <h2>Interesting Links</h2>
+    <p> Proofs are <a href="https://www.theproofistrivial.com/">trivial</a><br>!
+        Are you familiar with <a href="https://cims.nyu.edu/~tjl8195/quiz/frak.html">mathfrak</a>?
+    </p>
+    <a href="../" class="back-btn">← Back to Home</a>
 </body>
 </html>

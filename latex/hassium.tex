@@ -12,6 +12,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath,amsthm,amssymb,amsfonts,mathrsfs,mathtools,nicematrix,chngcntr,centernot,ytableau,sansmath,tikz-cd,pgfplots,tikz-3dplot,dutchcal,mathpazo,spectralsequences,mathalpha}
 \usepackage{imakeidx,textcomp,tocloft,environ,setspace,geometry,enumerate,enumitem,blindtext,multicol,xcolor,fancyhdr,calligra,graphicx,etoolbox,wrapfig,pgfplots,mdframed,tabularx,lipsum,comment,csquotes,verbatim,transparent,scalerel,ragged2e,halloweenmath,manfnt,relsize,nameref,newpxtext}
+\usepackage[wasysym]{horoscop}
 \usepackage[hidelinks]{hyperref}
 \usepackage{chemfig}
 
@@ -311,7 +312,7 @@
 \makeatletter
 \AtBeginEnvironment{example}{%
   \pushQED{\qed}%
-  \renewcommand{\qedsymbol}{$\mathghost$}%
+  \renewcommand{\qedsymbol}{\taurus}%
 }
 \AtEndEnvironment{example}{\popQED}
 \makeatother
@@ -435,8 +436,10 @@
 \DeclareMathOperator{\cod}{cod}
 \DeclareMathOperator*{\colim}{colim}
 \DeclareMathOperator{\coker}{coker}
-\DeclareMathAlphabet{\mathdutchcal}{U}{dutchcal}{m}{n}
-\newcommand{\cat}[1]{\ensuremath{\mathdutchcal{#1}}}
+\DeclareFontEncoding{LS1}{}{}
+\DeclareFontSubstitution{LS1}{stix2}{m}{n}
+\DeclareMathAlphabet{\mathstixfancy}{LS1}{stix2scr}{m}{n}
+\newcommand{\cat}[1]{\mathstixfancy{#1}}
 
 % CAT space
 \DeclareMathOperator{\CAT}{CAT}
@@ -667,6 +670,10 @@
 
 % Spectrum
 \DeclareMathOperator{\Spec}{Spec}
+
+% Sheaves?
+\DeclareMathAlphabet{\mathdutchcal}{U}{dutchcal}{m}{n}
+\newcommand{\sh}[1]{\mathdutchcal{#1}}
 
 % Sylow groups
 \DeclareMathOperator{\Syl}{Syl}

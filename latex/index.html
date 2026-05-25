@@ -10,48 +10,81 @@
             margin-left: 0;
             padding-left: 3rem;
         }
-
-        /* Adjusts text sizes */
         h2 {
             font-size: 2rem;
             margin-bottom: 1.5rem;
-            line-height: 1.2;
+            line-height: 1.5;
         }
         p {
             font-size: 1.5rem; 
-            line-height: 1.2;
-            margin-bottom: 1.5rem;
-        }
-        .home-btn {
-            display: inline-block;
-            margin-top: 2rem;
+            line-height: 2.2; 
             margin-bottom: 2rem;
-            padding: 12px 24px;
-            background-color: #8b0000;
-            color: #ffffff;
-            text-decoration: none;
-            font-family: sans-serif;
-            font-weight: bold;
-            font-size: 1.2rem;
-            border-radius: 6px;
-            letter-spacing: 1px;
-            transition: background-color 0.2s ease;
         }
-        
-        .home-btn:hover {
-            background-color: #5a0000;
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+            margin-bottom: 4rem;
+        }
+        .gallery-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .gallery-item img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+        }
+        .gallery-item .caption {
+            font-size: 1.2rem;
+            line-height: 1.4;
+            margin-top: 0.8rem;
+            margin-bottom: 0;
+            color: #444;
+        }
+        .back-btn {
+            display: inline-block;
+            margin-top: 3rem;
+            margin-bottom: 2rem;
+            padding: 10px 24px;
+            color: #000000;
+            text-decoration: none;
+            font-family: inherit;
+            font-size: 1.2rem;
+            border: 1px solid #000000;
+            transition: all 0.2s ease;
+        }
+        .back-btn:hover {
+            background-color: #000000;
             color: #ffffff;
         }
     </style>
 </head>
 <body>
     <h2>About My LaTeX Style</h2>
-    <p>I made a simple LaTeX style. Although the style uses pdfLaTeX, some slight changes would make it compatible with XeLaTeX or LuaLaTeX.</p>
-    <p>Click <a href="hassium.tex" download>here</a> to download the style document.</p>
-    <p>If you are new to LaTeX, see this Demo for step-by-step instructions.</p>
-    <p>A nice working example of the style is here.</p>
-    <h2>Helpful Links</h2>
-
-    <a href="../" class="home-btn">← Back to Home</a>
+    <p>I made a simple LaTeX style document. Although the style uses PdfLaTeX, some slight changes would make it compatible with XeLaTeX or LuaLaTeX.<br>
+        Click <a href="hassium.tex" download>here</a> to download the style document (version 1.5.2).<br>
+        If you are new to LaTeX, see this <a href="Demo.pdf" dowmload>Demo</a> for step-by-step instructions.<br>
+        A nice working example of the style is here: <a href="references.bib" download>.bib</a>, <a href="Lee12 Notes Ch1.tex" download>.tex</a>, <a href="Lee12 Notes Ch1.pdf" download>.pdf</a></p>
+    <h2 style="margin-top: 1rem;">Helpful Links</h2>
+    <p>Online LaTeX editor: <a href="https://www.overleaf.com/project">Overleaf</a><br>
+        Identify LaTeX symbols: <a href="https://detexify.kirelabs.org/">Detexify</a><br>
+        Documentations of packages: <a href="https://ctan.org/?lang=en">CTAN</a><br>
+        Ask AI for help!!! Chatgpt, Claude, Gemini, ...</p>
+    <h2 style="margin-top: 3rem;">Gallery</h2>
+    <div class="gallery"> 
+        <div class="gallery-item">
+            <img src="blow up.jpg" alt="blow up">
+            <p class="caption"><a href="blow up.tex" download>blow up</a></p>
+        </div>
+        <div class="gallery-item">
+            <img src="wild knot.jpg" alt="wild knot">
+            <p class="caption"><a href="wild knot.tex" download>wild knot</a></p>
+        </div>
+    </div>
+    <a href="../" class="back-btn">← Back to Home</a>
 </body>
 </html>

@@ -1,0 +1,361 @@
+% chktex-file 1 % chktex-file 2 chktex-file 8 chktex-file 9 chktex-file 11 chktex-file 12 chktex-file 13 chktex-file 15 chktex-file 17 chktex-file 18 chktex-file 26 chktex-file 31 chktex-file 36 chektex-file 40 chktex-file 44
+\documentclass[10pt]{article}
+\input{hassium.tex}
+\usetikzlibrary{hobby,tqft}
+\def\htitle{Introduction to Smooth Manifolds}
+\def\hauthor{Notes by Hassium}
+\def\hfauthor{Hassium}
+\begin{document}
+\htoc
+\newpage
+\hmain
+\pagecountstart
+\hpart{Generalities of Smooth Manifolds}
+\section{Smooth Manifold}
+\begin{definition}
+    A topological space $M$ is a \hdef{topological $n$-manifold} if the following properties hold.
+    \begin{enumerate}
+        \item For every $x\in M$, there exists a neighborhood ${U}_{x}$ of $x$ homeomorphic to an open subset of ${\R}^{n}$.
+        \item The space $M$ is second-countable.
+        \item The space $M$ is Hausdorff.
+    \end{enumerate}
+\end{definition}
+\begin{remark}
+    The empty set $\es$ is vacuously a topological $n$-manifold. We shall ignore this case.
+\end{remark}
+\begin{proposition}
+    Let $M$ be a topological space. Then the following are equivalent.
+    \begin{enumerate}
+        \item For every $x\in M$, there exists a neighborhood ${U}_{x}$ of $x$ homeomorphic to an open subset of ${\R}^{n}$.
+        \item For every $x\in M$, there exists a neighborhood ${U}_{x}$ of $x$ homeomorphic to an open ball of ${\R}^{n}$.
+        \item For every $x\in M$, there exists a neighborhood ${U}_{x}$ of $x$ such that ${U}_{x}\iso{\R}^{n}$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    (2$\Lra$3) Any open ball in ${\R}^{n}$ is homeomorphic to ${\R}^{n}$. (1$\Ra$3) Fix $x\in M$. Let $\vp:{U}_{x}\to V$ be the homeomorphism. Then there exists an open ball centered at $\vp(x)$ of sufficiently small radius such that $B(\vp(x))\sub V$. Let $U'={\vp}^{-1}(B(\vp(x)))$. Since $\vp$ is continuous, $U'$ is the desired neighborhood of $x$. (3$\Ra$1) Trivial.
+\end{proof}
+\begin{proposition}
+    If $m\ne n$, then any topological $m$-manifold is not homeomorphic to any topological $n$-manifold.
+\end{proposition}
+\par
+A self-contained proof will be shown later.
+\begin{definition}
+    Let $M$ be a topological $n$-manifold. A \hdef{chart} on $M$ is a pair $(U,\vp)$ where $U\sub M$ is open and $\vp:U\to V$ is a homeomorphism onto an open subset $V\sub{\R}^{n}$.
+\end{definition}
+\par
+For every $p\in M$, there exists a chart $(U,\vp)$ such that $p\in U$. If $\vp(p)=0$, then we say $(U,\vp)$ is \hdef{centered at} $p$.
+\begin{definition}
+    Let $(U,\vp)$ be a chart on a topological manifold $M$. The set $U$ is called a \hdef{coordinate domain}. If $\vp(U)$ is an open ball, then $U$ is called a \hdef{coordinate ball}. If $\vp(U)$ is an open cube, then $U$ is called a \hdef{coordinate cube}. The map $\vp$ is called the \hdef{coordinate map}. For every $p\in U$, rewrite $\vp(p)=({x}_{1}(p),\dots,{x}_{n}(p))$. The coordinates ${x}_{i}(p)$ are called \hdef{local coordinates} on $U$.
+\end{definition}
+\begin{example}
+    Let $U\sub{\R}^{n}$ be open and let $f:U\to{\R}^{k}$ be continuous. The \hdef{graph} of $f$ is $\Ga(f)=\{(x,y)\mid x\in U,y=f(x)\}$ endowed with the subspace topology, so it is Hausdorff and second countable. Let $\pi:{\R}^{n}\times{\R}^{k}\to{\R}^{n}$ be the natural projection, then $\pi{|}_{\Ga(f)}$ is a homeomorphism onto its image. Hence $\Ga(f)$ is a topological $n$-manifold.
+\end{example}
+\begin{example}
+    Recall that ${S}^{n}=\{x\in{\R}^{n+1}\mid|x|=1\}$. Equip ${S}^{n}$ with the subspace topology, then ${S}^{n}$ is Hausdorff and second-countable. Let ${U}_{i}^{+}=\{({x}_{1},\dots,{x}_{n+1})\mid{x}_{i}>0\}\sub{\R}^{n+1}$ and similarly define ${U}_{i}^{-}$, so $\{{U}_{i}^{\pm}\}$ covers ${S}^{n}$. Define $f:{B}^{n}\to\R$ by $f:u\mt\sqrt{1-{|u|}^{2}}$, so $f$ is continuous. If $({x}_{1},\dots,{x}_{n+1})\in{S}^{n}$, then $({x}_{1},\dots,\wh{{x}_{i}},\dots,{x}_{n+1})\in{B}^{n}$. We have $\Ga(f)={U}_{i}^{+}\cap{S}^{n}$ and $\Ga(-f)={U}_{i}^{-}\cap{S}^{n}$ for some ${U}_{i}$. Since $\Ga(f)$ and $\Ga(-f)$ are topological $n$-manifolds, ${S}^{n}$ is a topological $n$-manifold.
+\end{example}
+\begin{example}
+    The $n$-dimensional \hdef{real projective space} $\RP{n}$ is the set of all 1-dimensional linear subspaces of ${\R}^{n+1}$. Equivalently, we may define $\RP{n}$ via the quotient map $\pi:{\R}^{n+1}\sm\{0\}\to\RP{n}$ defined by $\pi:x\mt\cyc{x}$. Define $\wt{{U}_{i}}=\{({x}_{1},\dots,{x}_{n+1})\mid{x}_{i}\ne 0\}\sub{\R}^{n+1}\sm\{0\}$ and define ${U}_{i}=\pi(\wt{{U}_{i}})$. Fix $i$. Trivially $\wt{{U}_{i}}$ is open and saturated with respect to $\pi$. The restriction of a quotient map to an open saturated set is continuous, so $\pi{|}_{\wt{{U}_{i}}}$ is a continuous quotient map. Now define ${\vp}_{i}:{U}_{i}\to{\R}^{n}$ by ${\vp}_{i}:\cyc{({x}_{1},\dots,{x}_{n+1})}\mt({x}_{1}/{x}_{i},\dots,\wh{{x}_{i}/{x}_{i}},\dots,{x}_{n+1}/{x}_{i})$. This map is well-defined. The map ${\vp}_{i}\comp\pi$ on each coordinate is continuous, hence ${\vp}_{i}\comp\pi$ is continuous on $\wt{{U}_{i}}$. By the universal property for quotient spaces, ${\vp}_{i}$ is continuous.
+    \begin{center}
+        \begin{tikzcd}
+            {{\R}^{n}} & {{U}_{i}} \\
+            & {\wt{{U}_{i}}}
+            \arrow["{{\vp}_{i}}"', from=1-2, to=1-1]
+            \arrow["{{\vp}_{i}\comp\pi}", from=2-2, to=1-1]
+            \arrow["{\pi}"', from=2-2, to=1-2]
+        \end{tikzcd}
+    \end{center}
+    Consider ${\psi}_{i}:{\R}^{n}\to{U}_{i}$ defined by ${\psi}_{i}:({y}_{1},\dots,{y}_{n})\mt\cyc{{y}_{1},\dots,{y}_{i-1},1,{y}_{i},\dots,{y}_{n}}$, and ${\psi}_{i}$ is the continuous inverse of ${\vp}_{i}$. Since $\{{U}_{i}\}$ is an open cover of $\RP{n}$, $\RP{n}$ is locally Euclidean of dimension $n$. Pick $\cyc{x},\cyc{y}\in\RP{n}$. Suppose $\cyc{x}\in{U}_{i}$ and $\cyc{y}\in{U}_{j}$. Since ${U}_{i}\iso{\R}^{n}$, ${U}_{i}$ is Hausdorff, so the case $i=j$ is trivial. Let $i\ne j$. Let $r=\min\{d(x/|x|,y/|y|),d(x/|x|,-y/|y|)\}/3$. Then $\cyc{x}\in\pi({B}_{r}(x/|x|))$, $\cyc{y}\in\pi({B}_{r}(y/|y|))$, and $\pi({B}_{r}(x/|x|))\cap\pi({B}_{r}(y/|y|))=\es$. Hence $\RP{n}$ is Hausdorff. Since each ${U}_{i}$ is second-countable and $\{{U}_{i}\}$ is a finite open cover of $\RP{n}$, $\RP{n}$ is second-countable. Hence $\RP{n}$ is a topological $n$-manifold.
+\end{example}
+\begin{proposition}
+    The space $\RP{n}$ is compact.
+\end{proposition}
+\begin{proof}
+   For any $\cyc{x}\in\RP{n}$, $|x/|x||=1\in{S}^{n}$, so $\pi{|}_{{S}^{n}}$ is surjective. Since ${S}^{n}$ is compact, $\RP{n}$ is compact.
+\end{proof}
+\begin{example}
+    Let ${M}_{1},\dots,{M}_{k}$ be topological manifolds with $\dim{M}_{i}={n}_{i}$. The product space $M={M}_{1}\times\cdots\times{M}_{k}$ is Hausdorff and second-countable. For every $({p}_{1},\dots,{p}_{k})\in M$, there exist charts $({U}_{i},{\vp}_{i})$ in each ${M}_{i}$. Define $\vp:{U}_{1}\times\cdots\times{U}_{k}\to{\vp}_{1}({U}_{1})\times\cdots\times{\vp}_{k}({U}_{k})$ by $\vp:({x}_{1},\dots,{x}_{k})\mt({\vp}_{1}({x}_{1}),\dots,{\vp}_{k}({x}_{k}))$ and the image is open in ${\R}^{{\sum}_{1}^{k}{n}_{i}}$. Since each ${\vp}_{i}$ is a homeomorphism, $\vp$ is a homeomorphism. Hence $M$ is a topological $({\sum}_{1}^{k}{n}_{i})$-manifold. 
+\end{example}
+\begin{example}
+    The \hdef{n-torus} is defined to be the product space ${T}^{n}={S}^{1}\times\cdots\times{S}^{1}$ of $n$ copies of ${S}^{1}$. Hence ${T}^{n}$ is a topological $n$-manifold.
+\end{example}
+\begin{proposition}
+    Every topological manifold $M$ has a countable basis of precompact coordinate balls.
+\end{proposition}
+\begin{proof}
+    Let $\dim M=n$. Since $M$ is second countable, $M$ admits a countable cover $\{{U}_{i}\}$. Fix a chart $({U}_{i},{\vp}_{i})$. Consider the collection of balls ${B}_{r}(x)$, where $r\in\Q$ and $x\in{\Q}^{n}$, such that $\wb{{B}_{r}(x)}\sub{\vp}_{i}({U}_{i})$, then $\{{B}_{r}(x)\}$ is a precompact basis for ${\vp}_{i}({U}_{i})$. The collection $\{{\vp}_{i}^{-1}({B}_{r}(x))\}$ is a countable basis of ${U}_{i}$. Since $\wb{{B}_{r}(x)}$ is compact in ${\R}^{n}$, ${\vp}_{i}^{-1}(\wb{{B}_{r}(x)})$ is compact in ${U}_{i}$, Since $M$ is Hausdorff, the closure of ${\vp}_{i}^{-1}({B}_{r}(x))$ in ${U}_{i}$ is its closure in $M$. Hence the union of $\{{\vp}_{i}^{-1}({B}_{r}(x))\}$ is a precompact basis for $M$.
+\end{proof}
+\begin{proposition}
+    Let $M$ be a topological manifold. Then the following properties hold.
+    \begin{enumerate}
+        \item The manifold $M$ is locally path-connected.
+        \item The manifold $M$ is connected if and only if it is path-connected.
+        \item The components of $M$ are the same as its path components.
+        \item The manifold $M$ has countably many components and each of which is an open subset of $M$ and a connected topological manifold.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    (\rom1) Open balls are path-connected. Precompact coordinate balls are path-connected, hence $M$ is locally path-connected. (\rom2) Path-connected spaces are connected. By (\rom1), $M$ is locally path-connected. Since $M$ is connected, $M$ is path-connected. (\rom3) Since $M$ is locally path-connected, the path-components are open. Ppath-components partition $M$, so they are clopen. Every path-component is a subset of a connected component. Since every component is connected, it cannot be partitioned into multiple clopen subsets, so each component contains exactly one path-component. (\rom4) Every component of $M$ is open. All components cover $M$, so there exists a countable subcover. Since components are disjoint, there are countably many components. Each component is a subspace of $M$, so it is second-countable and Hausdorff, hence a connected topological manifold.
+\end{proof}
+\begin{proposition}
+    Every topological manifold is locally compact.
+\end{proposition}
+\begin{proof}
+    A topological manifold is Hausdorff and admits a basis of precompact sets, hence it is locally compact.
+\end{proof}
+\begin{definition}
+    Let $M$ be a topological space. Let $X\sub\ps(M)$. We say $X$ is \hdef{locally finite} if each $p\in M$ has a neighborhood that intersects at most finitely many sets in $X$.
+\end{definition}
+\begin{proposition}
+    Let $M$ be a topological space and let $X$ be locally finite. Then the following properties hold.
+    \begin{enumerate}
+        \item The set $\{\wb{{X}_{i}}\mid{X}_{i}\in X\}$ is locally finite.
+        \item The set $\wb{\Un{X}_{i}}=\Un\wb{{X}_{i}}$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    (\rom1) Fix $p\in M$. Since $X$ is locally finite, there exists neighborhood $U$ of $p$ such that it intersects ${X}_{1},\dots,{X}_{n}\in X$. Suppose there exists $y\in U\cap\wb{{X}_{m}}$, then any neighborhood of $y$ intersects ${X}_{m}$, so ${X}_{m}$ is one of ${X}_{1},\dots,{X}_{n}$, hence $U$ intersects at most $n$ closures. (\rom2) Trivially $\Un\wb{{X}_{i}}\sub\wb{\Un{X}_{i}}$. Let $p\in\wb{\Un{X}_{i}}$ and suppose $p\notin\Un\wb{{X}_{i}}$. Since $X$ is locally finite, there exists ${U}_{p}$ that only intersects ${X}_{1},\dots,{X}_{n}$. Since $p\notin\Un\wb{{X}_{i}}$, $W={U}_{p}\cap{\In}_{1}^{n}(M\sm\wb{{X}_{k}})$ is a neighborhood of $p$. Since $W\sub{U}_{p}$ and $W\sub M\sm\wb{{X}_{k}}$, $W\cap{X}_{k}=\es$, so $W\cap\Un{X}_{i}=\es$, a contradiction.
+\end{proof}
+\begin{definition}
+    Let $M$ be a topological space and let $U$ be a cover of $M$. A cover $V$ of $M$ is a \hdef{refinement} of $U$ if for each ${V}_{i}\in V$, there exists a ${U}_{j}\in U$ such that ${V}_{i}\sub{U}_{j}$. We say $M$ is \hdef{paracompact} if every open cover of $M$ admits an open locally finite refinement.
+\end{definition}
+\begin{proposition}
+    Let $M$ be a topological manifold. For every basis $B$ of $M$ and open cover $X$, there exists a countable locally finite refinement of $X$ that consists of basis elements in $B$.
+\end{proposition}
+\begin{proof}
+    Let $\{{K}_{j}\}$ be an exaustion of $M$ by compact sets. Define ${V}_{j}={K}_{j+1}\sm\Int({K}_{j})$ and ${W}_{j}=\Int({K}_{j+2})\sm{K}_{j-1}$, then ${V}_{j}\sub{W}_{j}$ is compact. For every $x\in{V}_{j}$, there exists ${U}_{x}\in X$ with $x\in{U}_{x}$. Since $B$ is a basis, there exists ${B}_{x}\in B$ with $x\in{B}_{x}$ such that ${B}_{x}\sub{U}_{x}\cap{W}_{j}$. The collection $\{{B}_{x}\}$ is an open cover of ${V}_{j}$, since ${V}_{j}$ is compact, there exists a finite subcover $\{{B}_{{x}_{j}}\}$. The union $\Un\{{B}_{{x}_{j}}\}$ is therefore a countable refinement of $X$. Notice that ${W}_{i}$ intersects ${W}_{j}$ if and only if $|i-j|\le 2$, so $\Un\{{B}_{{x}_{j}}\}$ is locally finite.
+\end{proof}
+\begin{proposition}
+    The fundamental group of a topological manifold is countable.
+\end{proposition}
+\begin{proof}
+    Let $M$ be a topological manifold. Pick a countable basis $B$ of coordinate balls of $M$. For every ${B}_{1},{B}_{2}\in B$, ${B}_{1}\cap{B}_{2}$ has at most countably many path-components. For every path-component, fix a point ${x}_{i}$, and let $X$ be the collection of those ${x}_{i}$. Since $B$ is countable, $X$ is countable. For every $x,y\in X$ and $U\in B$, fix a path ${h}_{x,y}^{U}$ joining $x$ and $y$ that entirely lies in $U$. Let $\Om$ be the set of all finite concatenation of such paths, so $\Om$ is also countable. Given any loop $f:[0,1]\to M$ based at $p\in M$, the set $\{{f}^{-1}(U)\mid U\in B\}$ is an open cover of $[0,1]$. Since $[0,1]$ is compact, by the Lebesgue's number lemma, there exists a partition $0={a}_{0}<{a}_{1}<\cdots<{a}_{k}=1$ such that each $[{a}_{i-1},{a}_{i}]$ is mapped by $f$ entirely into some ${U}_{i}\in B$. For each $i\in\{1,\dots,k-1\}$, $f({a}_{i})$ lies in ${U}_{i}\cap{U}_{i+1}$, so $f({a}_{i})$ belongs to a specific path-component of ${U}_{i}\cap{U}_{i+1}$. Let ${x}_{i}\in X$ be the chosen reference point for that path-component, and let ${g}_{i}$ be a path from $f({a}_{i})$ to ${x}_{i}$ lying entirely within that path-component. Define ${x}_{0}={x}_{k}=p$ and define ${g}_{0}={g}_{k}={c}_{p}$, the constant path. Let ${f}_{i}=f{|}_{[{a}_{i-1},{a}_{i}]}$, then $f\simeq({f}_{1}*{g}_{1})*({g}_{1}^{-1}*{f}_{2}*{g}_{2})*\cdots*(g_{k-1}^{-1}*{f}_{k})$. Notice that ${g}_{i-1}^{-1}*{f}_{i}*{g}_{i}$ lies in ${U}_{i}$, since ${U}_{i}$ is simply connected, any paths with the same endpoints are homotopic. Hence $f$ is homotopic to a path in $\Om$ and $[f]\in\Om$. Since $\Om$ is countable, ${\pi}_{1}(M,p)$ is countable.
+\end{proof}
+\begin{definition}
+    Let $U\sub{\R}^{n}$ and $V\sub{\R}^{m}$ be open. A function $F:U\to V$ is a \hdef{smooth function} if each component function of $F$ has continuous partial derivatives of all orders. A bijective smooth map is a \hdef{diffeomorphism} if its inverse map is smooth.
+\end{definition}
+\par
+We sometimes use \hdef{${C}^{\infty}$ functions} to denote smooth functions.
+\begin{definition}
+    Let $M$ be a topological $n$-manifold. Let $(U,\vp)$ and $(V,\psi)$ be charts. The \hdef{transition map} from $\vp$ to $\psi$ is the map $\psi\comp{\vp}^{-1}:\vp(U\cap V)\to\psi(U\cap V)$ defined by $\psi\comp{\vp}^{-1}:\vp(x)\mt\psi(x)$. Two charts are \hdef{smoothly compatible} if the transition map is a diffeomorphism.
+\end{definition}
+\begin{center}
+    \begin{tikzcd}
+        & {U\cap V} & \\
+        {\vp(U\cap V)} && {\psi(U\cap V)}
+        \arrow["\vp"', from=1-2, to=2-1]
+        \arrow["\psi", from=1-2, to=2-3]
+        \arrow["{\psi\comp{\vp}^{-1}}"', shift right, from=2-1, to=2-3]
+        \arrow["{\vp\comp{\psi}^{-1}}"', shift right, from=2-3, to=2-1]
+    \end{tikzcd}
+\end{center}
+\par
+If $U\cap V=\es$, the transition map $\psi\comp{\vp}^{-1}$ is vacuously a diffeomorphism.
+\begin{definition}
+    Let $M$ be a topological manifold. An \hdef{atlas} $\ca{A}$ for $M$ is a collection $\{({U}_{i},{\vp}_{i})\}$ of charts such that $\Un{U}_{i}=M$. An atlas is a \hdef{smooth atlas} if any two charts in the collection are smoothly compatible. A smooth atlas $\ca{A}$ for $M$ is \hdef{maximal} if it is not properly contained in any smooth atlas. 
+\end{definition}
+\begin{definition}
+    Let $M$ be a topological manifold. A maximal smooth atlas $\ca{A}$ for $M$ is called a \hdef{smooth structure} on $M$. A pair $(M,\ca{A})$ is called a \hdef{smooth manifold}.
+\end{definition}
+\begin{proposition}
+    Let $M$ be a topological manifold. Then the following properties hold.
+    \begin{enumerate}
+        \item Every smooth atlas $\ca{A}$ for $M$ is contained in a unique maximal smooth atlas, called the smooth structure determined by $\ca{A}$.
+        \item Two smooth atlases for $M$ determine the same smooth structure if and only if their union is a smooth atlas.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    (\rom1) Let $\ca{A}$ be a smooth atlas for $M$. Consider the collection $\wb{\ca{A}}$ of all charts that are compatible with every chart in $\ca{A}$. Clearly, $\ca{A}$ is contained in $\wb{\ca{A}}$, so $\wb{\ca{A}}$ is an atlas for $M$. Let $(U,\vp)$ and $(W,\theta)$ be two charts in $\wb{\ca{A}}$. For every $x\in U\cap W$, there exists a chart $(V,\psi)\in\ca{A}$ that contains $x$. On the intersection $U\cap V\cap W$, the transition map $\vp\comp{\psi}^{-1}\comp(\psi\comp{\theta}^{-1})=\vp\comp{\theta}^{-1}$ is a composition of diffeomorphisms, hence a diffeomorphism. Since the map is smooth on $U\cap V\cap W$, it is smooth at $x$. Because $x$ was arbitrary, the map is smooth everywhere on $U\cap W$. Hence, $\wb{\ca{A}}$ is a smooth atlas. If $\wb{\ca{A}}\sub\ca{B}$, where $\ca{B}$ is a smooth atlas, then any chart in $\ca{B}$ is compatible with all charts in $\ca{A}$. Hence $\ca{B}\sub\wb{\ca{A}}$ and $\wb{\ca{A}}$ is maximal. The uniqueness of $\wb{\ca{A}}$ is trivial. (\rom2) Let $\ca{B}$ be a smooth atlas for $M$. ($\Ra$) If $\wb{\ca{B}}=\wb{\ca{A}}$, then charts in $\ca{B}$ are compatible with charts in $\ca{A}$, so $\ca{A}\cup\ca{B}$ is smooth. ($\La$) If $\ca{A}\cup\ca{B}$ is smooth, then every chart in $\ca{A}$ is compatible with all charts in $\ca{B}$, so $\ca{A}\sub\wb{\ca{B}}$ and $\wb{\ca{A}}\sub\wb{\ca{B}}$. Similarly, $\wb{\ca{B}}\sub\wb{\ca{A}}$. Hence $\wb{\ca{A}}=\wb{\ca{B}}$.
+\end{proof}
+\par
+If all transition maps are $k$-differentiable (${C}^{k}$) diffeomorphisms instead of ${C}^{\infty}$ diffeomorphisms, we obtain a ${C}^{k}$ structure. A manifold with a ${C}^{k}$ structure is called a \hdef{${C}^{k}$ manifold}.
+\begin{definition}
+    Let $(M,\ca{A})$ be a smooth manifold. Every chart $(U,\vp)\in\ca{A}$ is called a \hdef{smooth chart}. The set $U$ is called a \hdef{smooth coordinate domain} and the map $\vp$ is called a \hdef{smooth coordinate map}. If $\vp(U)$ is a ball, then $U$ is called a \hdef{smooth coordinate ball}.
+\end{definition}
+\begin{definition}
+    Let $M$ be a smooth $n$-manifold. A set $B\sub M$ is a \hdef{regular coordinate ball} if there exists a smooth chart $(B',\vp)$ with $\wb{B}\sub B'$ such that for some positive reals $r<r'$, $\vp(B)={B}_{r}(0)$, $\vp(\wb{B})=\wb{{B}_{r}(0)}$, and $\vp(B')={B}_{r'}(0)$.
+\end{definition}
+\begin{proposition}
+    Every smooth manifold has a countable basis of regular coordinate balls.
+\end{proposition}
+\begin{proof}
+    Let $M$ be a smooth manifold. Since $M$ is second-countable, it admits a countable atlas $\{({U}_{i},{\vp}_{i})\}$. For each $i$, consider the collection of balls ${B}_{r}(a)\sub{\vp}_{i}({U}_{i})$ with $a\in{\Q}^{n}$ and $r\in{\Q}_{>0}$ such that there exists $r'\in{\Q}_{>0}$ with $r<r'$ and $\wb{{B}_{r}(a)}\sub{B}_{r'}(a)\sub{\vp}_{i}({U}_{i})$. This collection is countable. For each such ball, define ${B}_{i,a,r}={\vp}_{i}^{-1}({B}_{r}(a))$ and ${B}_{i,a,r}'={\vp}_{i}^{-1}({B}_{r'}(a))$. Then $({B}_{i,a,r}',{\vp}_{i}{|}_{{B}_{i,a,r}'})$ is a smooth chart. We have ${\vp}_{i}({B}_{i,a,r})={B}_{r}(a)$. Since $\wb{{B}_{r}(a)}$ is compact in ${\R}^{n}$, ${\vp}_{i}^{-1}(\wb{{B}_{r}(a)})$ is compact in $M$. Since $M$ is Hausdorff, ${\vp}_{i}^{-1}(\wb{{B}_{r}(a)})$ is closed in $M$, so ${\vp}_{i}(\wb{{B}_{i,a,r}})=\wb{{B}_{r}(a)}$, and ${\vp}_{i}({B}_{i,a,r}')={B}_{r'}(a)$. Hence ${B}_{i,a,r}$ is a regular coordinate ball. Let $p\in M$ and let $W\sub M$ be a neighborhood of $p$. Choose a chart $({U}_{i},{\vp}_{i})$ with $p\in{U}_{i}$. Then ${\vp}_{i}(W\cap{U}_{i})$ is open in ${\R}^{n}$. There exists a ball ${B}_{r}(a)$ such that ${\vp}_{i}(p)\in{B}_{r}(a)$ and $\wb{{B}_{r}(a)}\sub{\vp}_{i}(W\cap{U}_{i})$. Pick $r'>r$ such that $\wb{{B}_{r}(a)}\sub{B}_{r'}(a)\sub{\vp}_{i}(W\cap{U}_{i})\cap {\vp}_{i}({U}_{i})$. Then $p\in{B}_{i,a,r}\sub W$. Hence the collection of all ${B}_{i,a,r}$ forms a countable basis of $M$.
+\end{proof}
+\begin{example}
+    Let $M$ be a topological 0-manifold. For every $p\in M$, there exists a chart $(U,\vp)$ and $U\iso\{0\}$, so $U=\{p\}$ and $M$ is discrete. Since $M$ is second-countable, it has a countable basis, so there are countably many singletons in $M$, hence $M$ is countable. The set of all charts $\ca{A}$ is an atlas for $M$. Pick charts $(\{p\},\vp)$ and $(\{q\},\psi)$. If $p\ne q$, then the charts are vacuously compatible. If $p=q$, then $\psi\comp{\vp}^{-1}:\{0\}\mt\{0\}$ is the identity map, hence a diffeomorphism. Therefore $(M,\ca{A})$ is a smooth manifold.
+\end{example}
+\begin{example}
+    A topological manifold can admit different smooth structures. The space ${\R}^{n}$ is a topological $n$-manifold covered by the atlas $\{({\R}^{n},{\id}_{{\R}^{n}})\}$. The smooth structure determined by this atlas is called the \hdef{standard smooth structure} on ${\R}^{n}$. Now consider the homeomorphism $\vp:\R\to\R$ with $\vp:x\mt{x}^{3}$. Cover $\R$ by the atlas $\{(\R,\vp)\}$. The transition map ${\id}_{\R}\comp{\vp}^{-1}(y)={y}^{1/3}$ is not smooth at 0. Hence the smooth structure determined by $\{(\R,\vp)\}$ is not the same as the standard smooth structure on $\R$.
+\end{example}
+\begin{example}
+    Let $V$ be a finite-dimensional vector space over $\R$. Any norm on $V$ induces a metric and all norms induce the same metric topology. Let $\{{e}_{1},\dots,{e}_{n}\}$ be a basis of $V$. The map ${f}_{e}:{\R}^{n}\to V$ defined by ${f}_{e}:({x}_{1},\dots,{x}_{n})\mt\sum{x}_{i}{e}_{i}$ is a homeomorphism, so $(V,{f}_{e}^{-1})$ is a chart. Choosing another basis $\{{e}_{i}'\}$ gives a chart $(V,{f}_{e'}^{-1})$. There exists a change-of-basis matrix $({A}_{ij})$ with ${e}_{j}=\sum{A}_{ij}{e}_{i}'$. We have ${f}_{e'}^{-1}\comp{f}_{e}(x)={f}_{e'}^{-1}(({\sum}_{i}{\sum}_{j}{A}_{ij}{x}_{j}){e}_{i}')=(\sum{A}_{1j}{x}_{j},\dots,\sum{A}_{nj}{x}_{j})=Ax$, which is linear, hence smooth. The collection of those charts determines a smooth structure on $V$, called the \hdef{standard smooth structure} on $V$.
+\end{example}
+\begin{example}
+    Let $M(m\times n,\R)$ be the set of $m\times n$ matrices with real entries. As $\R$-vector spaces, $M(m\times n,\R)\iso{\R}^{mn}$, hence it is a smooth $(mn)$-manifold with the standard smooth structure.
+\end{example}
+\begin{example}
+    Let $(M,\ca{A})$ be a smooth $n$-manifold and let $U\sub M$ be open. Consider the collection ${\ca{A}}_{U}=\{(V,\vp)\in\ca{A}\mid V\sub U\}$. For every $p\in M$, there exists a chart $(W,\vp)\in\ca{A}$ such that $p\in W$. Let $V=W\cap U$, then $(V,\vp{|}_{V})\in{\ca{A}}_{U}$. Hence $(U,{\ca{A}}_{U})$ is a smooth $n$-manifold. Any open subset of a smooth manifold with this smooth structure is called an \hdef{open submanifold}.
+\end{example}
+\begin{example}
+    The general linear group ${GL}_{n}(\R)$ is an open subset of $M(n\times n,\R)$. Hence ${GL}_{n}(\R)$ is a smooth $({n}^{2})$-manifold.
+\end{example}
+\begin{example}
+    Consider the set ${M}_{m}(m\times n,\R)$ consists of the matrix of rank $m$. For every $A\in{M}_{m}(m\times n,\R)$, there exists a submatrix $A'\in M(m\times m,\R)$ of $A$ with $\det(A')\ne 0$. The map $A\mt\det(A')$ is continuous, there exists an open neighborhood of $A$ in $M(m\times n,\R)$ where $\det A'\ne 0$. The matrices in this neighborhood have $m$ linearly independent columns, so it is a neighborhood in ${M}_{m}(m\times n,\R)$. Hence ${M}_{m}(m\times n,\R)\sub M(m\times n,\R)$ is open, it is a smooth $(mn)$-manifold.
+\end{example}
+\begin{example}
+    Let $V$ and $W$ be finite-dimensional vector spaces over a field $K$. The set of linear maps from $V$ to $W$ form a vector space $\ca{L}(V,W)$. Hence $\ca{L}(V,W)$ is a smooth $(\dim V\cdot\dim W)$-manifold.
+\end{example}
+\begin{example}
+    Let $\Ga(f)$ be the graph of a smooth function $f$. Then $\Ga(f)$ is covered by the chart $(\Ga(f),\pi{|}_{\Ga(f)})$. It is a smooth manifold with the smooth structure $\{(\Ga(f),\pi{|}_{\Ga(f)})\}$.
+\end{example}
+\begin{example}
+    Recall that ${S}^{n}$ is covered by the charts $({U}_{i}^{\pm},{\vp}_{i}^{\pm})$, where ${\vp}_{i}^{\pm}:({x}_{1},\dots,{x}_{n+1})\mt({x}_{1},\dots,\wh{{x}_{i}},\dots,{x}_{n+1})$. We have ${\vp}_{i}^{\pm}\comp{({\vp}_{j}^{\pm})}^{-1}(x)={\vp}_{i}^{\pm}({x}_{1},\dots,{x}_{j-1},\pm\sqrt{1-{|x|}^{2}},{x}_{j},\dots,{x}_{n})=({x}_{1},\dots,\wh{{x}_{i}},\dots,\pm\sqrt{1-{|x|}^{2}},\dots,{x}_{n})$ for $i<j$. Similarly, the cases $i>j$ and $i=j$ give diffeomorphisms. The case ${\vp}_{i}^{\pm}\comp{({\vp}_{j}^{\mp})}^{-1}$ follows by the same argument. Hence ${S}^{n}$ is a smooth $n$-manifold. The smooth structure $\{({U}_{i}^{\pm},{\vp}_{i}^{\pm})\}$ is called the \hdef{standard smooth structure} on ${S}^{n}$.
+\end{example}
+\begin{example}
+    Let $U\sub{\R}^{n}$ be open and let $\vp:U\to\R$ be smooth. The set $\inv{\vp}(c)$ is called a \hdef{level set} of $\vp$. Pick some level set $M$ and suppose $[\frac{\pa\vp}{\pa{x}_{1}}(a),\dots,\frac{\pa\vp}{\pa{x}_{n}}(a)]\ne 0$ for all $a\in M$. By the implicit function theorem, there exists a neighborhood ${U}_{a}$ such that $M\cap{U}_{a}$ is a graph of some smooth function $f:V\to\R$, where $V\sub{\R}^{n-1}$ is open, defined by $f:({x}_{1},\dots,\wh{{x}_{i}},\dots,{x}_{n})\mt{x}_{i}$. Similar to the previous example, it is clear that $\{({U}_{a}\cap M,{\psi}_{a})\}$, where ${\psi}_{a}:({x}_{1},\dots,{x}_{n})\mt({x}_{1},\dots,\wh{{x}_{i}},\dots,{x}_{n})$, is a smooth structure on $M$. Hence $M$ is a smooth $(n-1)$-manifold.
+\end{example}
+\begin{example}
+    Recall that $\RP{n}$ is covered by the charts $({U}_{i},{\vp}_{i})$, where ${\vp}_{i}:\cyc{({x}_{1},\dots,{x}_{n+1})}\mt({x}_{1}/{x}_{i},\dots,\wh{{x}_{i}/{x}_{i}},\dots,\\{x}_{n+1}/{x}_{i})$. We have ${\vp}_{i}\comp{\vp}_{j}^{-1}(x)={\vp}_{i}({x}_{1},\dots,{x}_{j-1},1,{x}_{j},\dots,{x}_{n})=({x}_{1}/{x}_{i},\dots,\wh{{x}_{i}/{x}_{i}},\dots,1/{x}_{i},\dots,{x}_{n}/{x}_{i})$ for $i<j$. By the same argument, other cases give diffeomorphisms. Hence $\RP{n}$ is a smooth $n$-manifold.
+\end{example}
+\begin{example}
+    Recall that the product topological manifold ${M}_{1}\times\cdots\times{M}_{n}$ is covered by the charts $({U}_{1}\times\cdots\times{U}_{n},{\vp}_{1}\times\cdots\times{\vp}_{n})$. We have $({\vp}_{1}\times\cdots\times{\vp}_{n})\comp{({\psi}_{1}\times\cdots\times{\psi}_{n})}^{-1}=({\vp}_{1}\comp{\psi}_{1}^{-1})\times\cdots\times({\vp}_{n}\comp{\psi}_{n}^{-1})$. Each ${\vp}_{i}\comp{\psi}_{1}^{-1}$ is smooth, so the product is smooth. Hence ${M}_{1}\times\cdots\times{M}_{n}$ is a smooth manifold.
+\end{example}
+\begin{theorem}[chart lemma]
+    Let $M$ be a set. Let $\{{U}_{\al}\}\sub\ps(M)$ with maps ${\vp}_{\al}:{U}_{\al}\to{\R}^{n}$. Then $M$ is a smooth $n$-manifold with the smooth structure $\{({U}_{\al},{\vp}_{\al})\}$ if the following properties hold.
+    \begin{enumerate}
+        \item For every $\al$, ${\vp}_{\al}$ is a bijection onto an open subset of ${\R}^{n}$.
+        \item For every $\al$ and $\be$, ${\vp}_{\al}({U}_{\al}\cap{U}_{\be})$ and ${\vp}_{\be}({U}_{\al}\cap{U}_{\be})$ are open.
+        \item If ${U}_{\al}\cap{U}_{\be}\ne\es$, then the map ${\vp}_{\be}\comp{\vp}_{\al}^{-1}:{\vp}_{\al}({U}_{\al}\cap{U}_{\be})\to{\vp}_{\be}({U}_{\al}\cap{U}_{\be})$ is smooth.
+        \item There exist countably many ${U}_{\al}$ that cover $M$.
+        \item Let $p,q\in M$. If $p\ne q$, then either there exists ${U}_{\al}$ such that $p,q\in{U}_{\al}$ or there exist ${U}_{\al}$ and ${U}_{\be}$ such that $p\in{U}_{\al}$, $q\in{U}_{\be}$, and ${U}_{\al}\cap{U}_{\be}=\es$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Define $\{{\vp}_{\al}^{-1}(V)\}$, where $V\sub{\vp}_{\al}({U}_{\al})$ is open, as a basis of the topology. Let $p\in{\vp}_{\al}^{-1}(V)\cap{\vp}_{\be}^{-1}(W)$. By (\rom1) and (\rom3), ${({\vp}_{\be}\comp{\vp}_{\al}^{-1})}^{-1}(W)\sub{\vp}_{\al}({U}_{\al}\cap{U}_{\be})$, and by (\rom2), ${({\vp}_{\be}\comp{\vp}_{\al}^{-1})}^{-1}(W)$ is open, so $V'=V\cap{({\vp}_{\be}\comp{\vp}_{\al}^{-1})}^{-1}(W)$ is open in ${\R}^{n}$. We have $p\in{\vp}_{\al}^{-1}(V')$. This basis induces a topology on $M$. Clearly (\rom4) implies $M$ is second-countable and (\rom5) implies $M$ is Hausdorff. Hence by (\rom3), $M$ is a smooth $n$-manifold.
+\end{proof}
+\begin{example}
+    Let $V$ be a $n$-dimensional $\R$-vector space. A \hdef{Grassmannian} ${G}_{k}(V)$ is the set of all $k$-dimensional linear subspaces of $V$. We show ${G}_{k}(V)$ is a smooth manifold by the chart lemma. Suppose $V=P\op Q$, where $\dim P=k$. Given a linear map $X:P\to Q$, we have $\Ga(X)=\{v+X(v)\mid v\in P\}\sub V$, so $\Ga(X)\cap Q=\{0\}$. Let $S\sub V$ be a $k$-dimensional linear subspace such that $S\cap Q=\{0\}$, then ${\pi}_{P}{|}_{S}:S\to P$ is an isomorphism, so $X={\pi}_{Q}\comp{\pi}_{P}^{-1}$ is a well-defined linear map and $\Ga(X)=S$. Let ${U}_{Q}$ be the set of subspaces that intersect trivially with $Q$. Define $\vp:{U}_{Q}\to\ca{L}(P,Q)$ by $S\mt X$, so $\vp$ is bijective. Now $\ca{L}(P,Q)\iso M((n-k)\times k,\R)\iso{\R}^{(n-k)k}$, which is open. This proves (\rom1). Let $V=P'\op Q'$ be another such decomposition. Fix $X\in\vp({U}_{Q}\cap{U}_{Q'})$. Define ${I}_{X}:P\to V$ by ${I}_{X}:v\mt v+X(v)$. Here $\ker({\pi}_{P'}\comp{I}_{X})=\{0\}$, so ${\pi}_{P'}\comp{I}_{X}$ has full rank. Define $\psi:\ca{L}(P,Q)\to\ca{L}(P,P')$ by $\psi:X\mt{\pi}_{P'}\comp{I}_{X}$, which is continuous. Since the matrices with full rank form an open submanifold, $\vp({U}_{Q}\cap{U}_{Q'})$ is open. This proves (\rom2). Let $X\in\vp({U}_{Q}\cap{U}_{Q'})$ and let $S=\Ga(X)$. Then $\vp'\comp{\vp}^{-1}(X)=\vp'(\Ga(X))={\pi}_{Q'}\comp{\pi}_{P'}^{-1}(X)$. Since ${I}_{X}$ is an isomorphism between $P$ and $S$, $\vp'\comp{\vp}^{-1}(X)=({\pi}_{Q'}\comp{I}_{X})\comp{({\pi}_{P'}\comp{I}_{X})}^{-1}=({\pi}_{Q'}{|}_{P}+{\pi}_{Q}{|}_{Q'}\comp X){({\pi}_{P'}{|}_{P}+{\pi}_{P'}{|}_{Q}\comp X)}^{-1}$. The entries of ${({\pi}_{P'}{|}_{P}+{\pi}_{P'}{|}_{Q}\comp X)}^{-1}$ are rational functions, since rational functions are infinitely differentiable, $\vp\comp{\vp}^{-1}$ is smooth. This proves (\rom3). Let $\{{e}_{1},\dots,{e}_{n}\}$ be a basis of $V$, then any partition of $n$ gives bases of $P$ and $Q$. Finitely many ${U}_{Q}$ covers ${G}_{k}(V)$. This proves (\rom4). Let $P,P'\sub V$ be subspaces of dimension $k$, then there exists a subspace $Q$ with $\dim Q=n-k$ such that $P\cap Q=\{0\}=P'\cap Q$, so $P,P'\in{U}_{Q}$. This proves (\rom5).
+\end{example}
+\begin{definition}
+    The \hdef{closed n-dimensional upper half-space} ${\bb{H}}^{n}$ is defined to be the set $\{({x}_{1},\dots,{x}_{n})\in{\R}^{n}\mid{x}_{n}\ge 0\}$.
+\end{definition}
+\par
+We denote the topological interior of ${\bb{H}}^{n}$ to be $\Int{\bb{H}}^{n}$ and denote the topological boundary of ${\bb{H}}^{n}$ by $\pa{\bb{H}}^{n}$. More precisely, $\Int{\bb{H}}^{n}=\{({x}_{1},\dots,{x}_{n})\mid{x}_{n}>0\}$ and $\pa{\bb{H}}^{n}=\{({x}_{1},\dots,{x}_{n})\mid{x}_{n}=0\}$.
+\begin{definition}
+    A \hdef{topological n-manifold with boundary} is a second-countable Hausdorff space $M$ in which every point has a neighborhood homeomorphic either to an open subset of ${\R}^{n}$ or to an open subset of ${\bb{H}}^{n}$.
+\end{definition}
+\begin{center}
+    \begin{tikzpicture}[use Hobby shortcut]
+        \draw[thick] (0,0) ellipse (0.058 and 0.396);
+        \draw[thick, hobby] plot coordinates {(0,0.396) (-1.152, 0.634) (-1.8,0) (-1.152, -0.634) (0,-0.396)};
+        \draw[thick] (-1.404, -0.036) to[out=-30, in=210] (-0.756, -0.036);
+        \draw[thick] (-1.296, -0.072) to[out=45, in=135] (-0.864, -0.072);
+        \draw[thick, dashed] (-0.058, 0.18) arc (90:270:0.18);
+        \coordinate (p) at (-0.058, 0);
+        \filldraw[black] (p) circle (0.9pt);
+        \coordinate (q) at (-0.72, -0.36);
+        \filldraw[black] (q) circle (0.9pt);
+        \draw[thick, dashed] (q) circle (0.144);
+        \draw[thick] (1.08,0) -- (3.24,0);
+        \draw[thick] (2.16,-0.72) -- (2.16,0.72);
+        \coordinate (a) at (1.44, -0.54);
+        \filldraw[black] (a) circle (0.9pt);
+        \draw[thick, dashed] (a) circle (0.144);
+        \coordinate (b) at (2.088, 0);
+        \filldraw[black] (b) circle (0.9pt);
+        \draw[thick, dashed] (2.304, 0) arc (0:180:0.216);
+        \draw[->, thick, shorten <= 1.8pt, shorten >= 1.8pt] 
+            (-0.54, -0.432) to[out=-25, in=-155] (1.26, -0.576);
+        \draw[->, thick, shorten <= 1.8pt, shorten >= 1.8pt]
+            (-0.18, 0.043) to[out=25, in=155] (1.908, 0.216);
+    \end{tikzpicture}
+\end{center}
+\begin{definition}
+    Let $M$ be a topological $n$-manifold with boundary. A \hdef{chart} is a pair $(U,\vp)$, where $U\sub M$ is open and $\vp(U)$ is homeomorphic to either an open subset of ${\R}^{n}$ or an open subset of ${\bb{H}}^{n}$. We say $(U,\vp)$ is an \hdef{interior chart} if $\vp(U)$ is open in ${\R}^{n}$. We say $(U,\vp)$ is a \hdef{boundary chart} if $\vp(U)$ is open in ${\bb{H}}^{n}$ and $\vp(U)\cap\pa{\bb{H}}^{n}\ne\es$. A boundary chart with image of the form ${B}_{r}(x)\cap{\bb{H}}^{n}$, where $x\in\pa{\bb{H}}^{n}$, is called a \hdef{coordinate half-ball}.
+\end{definition}
+\begin{definition}
+    Let $M$ be a topological $n$-manifold with boundary. A point $p\in M$ is an \hdef{interior point} if it is in the domain of an interior chart. The point is a \hdef{boundary point} if it is in the domain of a boundary chart $(U,\vp)$ such that $\vp(p)\in\pa{\bb{H}}^{n}$. The \hdef{boundary} of $M$, denoted $\pa M$, is the set of all boundary points in $M$. The \hdef{interior} of $M$, denoted $\Int(M)$, is the set of all interior points in $M$.
+\end{definition}
+\par
+Notice that the interior and boundary of a topological manifold are not the same as the interior and boundary of the topological space. The open unit ball ${B}^{n}$ has no boundary but its topological boundary is ${S}^{n-1}$ if we consider ${B}^{n}$ as a subspace of ${\R}^{n}$.
+\begin{proposition}
+    Let $M$ be a topological manifold with boundary, then $\Int M\cup\pa M=M$ and $\Int M\cap\pa M=\es$.
+\end{proposition}
+\par
+A self-contained proof will be shown later.
+\begin{definition}
+    A \hdef{closed manifold} is a compact manifold without boundary. An \hdef{open manifold} is a non-compact manifold without boundary.
+\end{definition}
+\begin{proposition}
+    Let $M$ be a topological $n$-manifold with boundary. Then the following properties hold.
+    \begin{enumerate}
+        \item The interior $\Int M$ is open in $M$ and it is a topological $n$-manifold with $\pa(\Int M)=\es$.
+        \item The boundary $\pa M$ is closed in $M$ and it is a topological $(n-1)$-manifold with $\pa(\pa M)=\es$.
+        \item If $n=0$, then $\pa M=\es$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    (\rom1) For every $p\in\Int M\sub M$, $p$ is contained in the domain of some interior chart, so $\Int M$ is open and it is a topological $n$-manifold. For every $p\in\Int M$, $p\notin\pa M$, since $\Int M$ has dimension $n$, $p\notin\pa(\Int M)$. (\rom2) If $p\in\pa M$, then $p$ is contained in the domain of a boundary chart. Since $\pa M=M\sm\Int M$, $\pa M$ is closed. Since $\vp(p)\in\pa{\bb{H}}^{n}$, $\pa M$ is a topological $(n-1)$ manifold. Similarly, $\pa(\pa M)=\es$. (\rom3) We have $\pa{\bb{H}}^{0}=\es$, so $\pa M=\es$.
+\end{proof}
+\begin{proposition}
+    Let $M$ be a topological manifold with boundary. Then the following properties hold.
+    \begin{enumerate}
+        \item The manifold $M$ has a countable basis of precompact coordinate balls and half-balls.
+        \item The manifold $M$ is locally compact.
+        \item The manifold $M$ is paracompact.
+        \item The manifold $M$ is locally path-connected.
+        \item The manifold $M$ has countably many components, each of which is an open subset of $M$ and a connected topological manifold with boundary.
+        \item The fundamental group ${\pi}_{1}(M)$ is countable.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    (\rom1) The countable cover of charts consists of interior charts and boundary charts. For interior charts, the same argument as in \quoteprop{1.4} applies. For boundary charts, ${\vp}_{i}({U}_{i})\sub{\bb{H}}^{n}$ is open. Apply the logic from \quoteprop{1.4} to ${B}_{r}(x)\cap{\bb{H}}^{n}$, where $x\in{\Q}^{n}$, ${x}_{n}=0$, and $r\in{\Q}_{>0}$. (\rom2) Since $M$ is Hausdorff, by (\rom1), $M$ is locally compact. (\rom3) The proof is identical to that of \quoteprop{1.8}. (\rom4) Open balls and half balls are path-connected. The proof is identical to that of \quoteprop{1.5}. (\rom5) The proof is identical to that of \quoteprop{1.5}. (\rom6) Open balls and half-balls are simply connected. The proof is identical to that of \quoteprop{1.9}.
+\end{proof}
+\begin{definition}
+    Let $U\sub{\bb{H}}^{n}$ be open. A map $F:U\to{\R}^{k}$ is \hdef{smooth} if for any $x\in U$, there exists an open $\wt{U}\sub{\R}^{n}$ with $x\in\wt{U}$ and a smooth map $\wt{F}:\wt{U}\to{\R}^{k}$ such that $\wt{F}{|}_{\wt{U}\cap U}=F{|}_{\wt{U}\cap U}$.
+\end{definition}
+\par
+We can similarly define smooth compatibility, smooth structures, and smooth manifolds with boundary.
+\begin{proposition}
+    Every smooth manifold with boundary has a countable basis consisting of regular coordinate balls and half-balls.
+\end{proposition}
+\begin{proof}
+    The interior $\Int M$ admits a countable basis of regular coordinate balls. Let $\{({U}_{i},{\vp}_{i})\}$ be a countable atlas for $M$. For boundary charts, consider the collection of half-balls ${H}_{r}(a)={B}_{r}(a)\cap{\bb{H}}^{n}$ with $a\in{\Q}^{n}$, ${a}_{n}=0$, and $r\in{\Q}_{>0}$, such that there exists $r'>r$ with $\wb{{H}_{r}(a)}\sub{H}_{r'}(a)\sub{\vp}_{i}({U}_{i})$. This collection is countable. Define ${B}_{i,a,r}={\vp}_{i}^{-1}({H}_{r}(a))$ and ${B}_{i,a,r}'={\vp}_{i}^{-1}({H}_{r'}(a))$. Since $\wb{{H}_{r}(a)}$ is compact, ${\vp}_{i}^{-1}(\wb{{H}_{r}(a)})$ is closed in $M$. Then $({B}_{i,a,r}',{\vp}_{i}{|}_{{B}_{i,a,r}'})$ is a smooth boundary chart. Apply the same logic from \quoteprop{1.11}, the union of these half-balls and the regular coordinate balls from $\Int M$ forms a countable basis for $M$.
+\end{proof}
+\begin{theorem}[chart lemma]
+    Let $M$ be a set. Let $\{{U}_{\al}\}\sub\ps(M)$ with maps ${\vp}_{\al}:{U}_{\al}\to{\R}^{n}$ or ${\vp}_{\al}:{U}_{\al}\to{\bb{H}}^{n}$. Then $M$ is a smooth $n$-manifold with boundary if the following properties hold.
+    \begin{enumerate}
+        \item For every $\al$, ${\vp}_{\al}$ is a bijection onto an open subset of ${\R}^{n}$ or ${\bb{H}}^{n}$.
+        \item For every $\al$ and $\be$, ${\vp}_{\al}({U}_{\al}\cap{U}_{\be})$ and ${\vp}_{\be}({U}_{\al}\cap{U}_{\be})$ are open.
+        \item If ${U}_{\al}\cap{U}_{\be}\ne\es$, then the map ${\vp}_{\be}\comp{\vp}_{\al}^{-1}:{\vp}_{\al}({U}_{\al}\cap{U}_{\be})\to{\vp}_{\be}({U}_{\al}\cap{U}_{\be})$ is smooth.
+        \item There exist countably many ${U}_{\al}$ that cover $M$.
+        \item Let $p,q\in M$. If $p\ne q$, then either there exists ${U}_{\al}$ such that $p,q\in{U}_{\al}$ or there exist ${U}_{\al}$ and ${U}_{\be}$ such that $p\in{U}_{\al}$, $q\in{U}_{\be}$, and ${U}_{\al}\cap{U}_{\be}=\es$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    The proof is similar to that of \quotethm{1.1} and (\rom1) implies that $M$ is a manifold with boundary.
+\end{proof}
+\begin{proposition}
+    Let $M$ be a smooth manifold with boundary and let $U\sub M$ be open. Then the following properties hold.
+    \begin{enumerate}
+        \item The space $U$ is a smooth $n$-manifold with boundary.
+        \item If $U\sub\Int M$, then $U$ is a smooth manifold without boundary.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    (\rom1) Let $A$ be a smooth atlas of $M$. Consider the collection ${\ca{A}}_{U}=\{(V,\vp)\in\ca{A}\mid V\sub U\}$. For every $p\in U$, there exists a chart $(W,\vp)\in\ca{A}$ such that $p\in W$. Let $V=W\cap U$. Then $(V,\vp{|}_{V})\in{\ca{A}}_{U}$. Hence $(U,{\ca{A}}_{U})$ is a smooth $n$-manifold with boundary. (\rom2) Since $\Int M\sub M$ is open, $\Int M$ is a smooth submanifold without boundary. Since $U$ is open in $\Int M$, $U$ is a submanifold without boundary. 
+\end{proof}
+\begin{proposition}
+    Let ${M}_{1},\dots,{M}_{n}$ be smooth manifolds without boundary and let $N$ be a smooth manifold with boundary. Then $\pa({M}_{1}\times\cdots\times{M}_{n}\times N)={M}_{1}\times\cdots\times{M}_{n}\times\pa N$.
+\end{proposition}
+\begin{proof}
+    Let $M={M}_{1}\times\cdots\times{M}_{n}$. Then $\pa M=\es$. Let $\dim M=k$ and $\dim N=t$. Since $\pa(M\times\Int N)=\es$, if $p\in M\times\Int N$, then there exists a chart whose domain contains $p$. If $p\in M\times\pa N$, then there exists charts $U\sub M$ and $V\sub N$ such that $p\in U\times V$. Since $U\times V$ is diffeomorphic to an open subset of ${\R}^{k}\times{\bb{H}}^{t}\iso{\bb{H}}^{k+t}$, $M\times N$ is a smooth manifold with boundary and $\pa(M\times N)=M\times\pa N$.
+\end{proof}
+\begin{proposition}
+    Let $M$ be a smooth manifold with boundary and let $p\in M$. If there exists a boundary chart $(U,\vp)$ with $p\in U$, then any chart $(V,\psi)$ with $p\in V$ is a boundary chart.
+\end{proposition}
+\begin{proof}
+    Suppose $\psi(p)\in\Int{\bb{H}}^{n}$. Then there exists a ball $B(\psi(p))\sub{\R}^{n}$ such that $B\sub\psi(U\cap V)\sub\Int{\bb{H}}^{n}$. The transition map $\tau=\vp\comp{\psi}^{-1}$ is a diffeomorphism, so the Jacobian $d{\tau}_{x}$ is invertible at every $x\in B$. By the inverse function theorem, $\tau{|}_{B}$ is an open map. We have $\tau(\psi(p))=\vp(p)\in\pa{\bb{H}}^{n}$, so $\tau(B)$ is an open neighborhood of $\vp(p)$, a contradiction. 
+\end{proof}
+\hindex
+\hreference{references}{amsalpha}
+\end{document}

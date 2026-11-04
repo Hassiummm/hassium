@@ -159,12 +159,38 @@ def render_marked_page(relative_path, snippets):
     return text
 
 
+def render_inline_markup(text):
+    """Render the small subset of Markdown used by the reading-group pages.
+
+    Emphasis is applied only to text outside HTML tags and math delimiters, so
+    ``$C^\\ast$`` and other formulas are left for MathJax.
+    """
+    parts = re.split(
+        r"(<[^>]+>|\$\$.*?\$\$|\$[^$]*\$|\\\(.*?\\\)|\\\[.*?\\\])",
+        text,
+        flags=re.DOTALL,
+    )
+    for index, part in enumerate(parts):
+        if not part or part.startswith(("<", "$", r"\(", r"\[")):
+            continue
+        part = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", part, flags=re.DOTALL)
+        part = re.sub(
+            r"(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)",
+            r"<em>\1</em>",
+            part,
+            flags=re.DOTALL,
+        )
+        parts[index] = part
+    return "".join(parts)
+
+
 def render_group_page(document):
     layout = (ROOT / "_layouts" / "reading-group.html").read_text(encoding="utf-8")
     title = html.escape(document["title"])
     layout = layout.replace("{{ page.title | escape }}", title)
     layout = layout.replace("{{ page.title }}", title)
-    return layout.replace("{{ content }}", document["body"])
+    content = render_inline_markup(document["body"])
+    return layout.replace("{{ content }}", content)
 
 
 def collection_snapshot():

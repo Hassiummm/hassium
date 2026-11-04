@@ -2,6 +2,10 @@ title: "Rolfsen knot table 8_6"
 description: "Mathematics, LaTeX, and reading groups."
 markdown: kramdown
 
+kramdown:
+  parse_block_html: true
+  parse_span_html: true
+
 exclude:
   - preview.py
   - README.md

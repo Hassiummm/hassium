@@ -21,6 +21,18 @@
     </script>
     <link rel="preload" href="../../../assets/fonts/pagella-regular.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="../../../assets/css/site.css">
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
     <a class="skip-link" href="#main">Skip to content</a>

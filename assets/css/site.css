@@ -486,7 +486,7 @@ html[data-theme="dark"] .infinity {
 }
 
 .block > p {
-    max-width: 62ch;
+    max-width: 84ch;
 }
 
 .block .actions {

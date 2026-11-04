@@ -1,102 +1,163 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <title>LaTeX</title>
-    <link rel="stylesheet" href="https://unpkg.com/latex.css/style.min.css">
-    <style>
-        body {
-            max-width: 100%;
-            margin-left: 0;
-            padding-left: 3rem;
-        }
-        h2 {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.5;
-        }
-        p {
-            font-size: 1.5rem; 
-            line-height: 2.2; 
-            margin-bottom: 2rem;
-        }
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-top: 2rem;
-            margin-bottom: 4rem;
-        }
-        .gallery-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-        .gallery-item img {
-            max-width: 100%;
-            height: auto;
-            border: 1px solid #ddd;
-        }
-        .gallery-item .caption {
-            font-size: 1.2rem;
-            line-height: 1.4;
-            margin-top: 0.8rem;
-            margin-bottom: 0;
-            color: #444;
-        }
-        .back-btn {
-            display: inline-block;
-            margin-top: 3rem;
-            margin-bottom: 2rem;
-            padding: 10px 24px;
-            color: #000000;
-            text-decoration: none;
-            font-family: inherit;
-            font-size: 1.2rem;
-            border: 1px solid #000000;
-            transition: all 0.2s ease;
-        }
-        .back-btn:hover {
-            background-color: #000000;
-            color: #ffffff;
-        }
-    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LaTeX — Hassium</title>
+    <meta name="description" content="A simple LaTeX style for notes and problem sets, with a demo, a working example, and figure studies.">
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+    <script>
+        (function () {
+            try {
+                var theme = localStorage.getItem("hassium-theme");
+                if (theme !== "light" && theme !== "dark") {
+                    theme = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+                }
+                document.documentElement.setAttribute("data-theme", theme);
+            } catch (error) {
+                document.documentElement.setAttribute("data-theme", "light");
+            }
+        })();
+    </script>
+    <link rel="preload" href="../assets/fonts/pagella-regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../assets/css/site.css">
 </head>
 <body>
-    <h2 style="margin-top: 1rem;">About My LaTeX Style</h2>
-    <p> I made a simple LaTeX style document. Although the style uses PdfLaTeX, some slight changes would make it compatible with XeLaTeX or LuaLaTeX.<br>
-        Click <a href="hassium.tex" download>here</a> to download the style document (version 1.5.2).<br>
-        If you are new to LaTeX, see this <a href="Demo.pdf">Demo</a> for step-by-step instructions.<br>
-        A nice working example of the style is here: <a href="references.bib" download>.bib</a>, <a href="Lee12 Notes Ch1.tex" download>.tex</a>, <a href="Lee12 Notes Ch1.pdf">.pdf</a>
-        If you want a more complicated style, please contact me (via discord).</p>
-    <h2 style="margin-top: 1rem;">Helpful Links</h2>
-    <p>Online LaTeX editor: <a href="https://www.overleaf.com/project">Overleaf</a><br>
-        Identify LaTeX symbols: <a href="https://detexify.kirelabs.org/">Detexify</a><br>
-        Documentations of packages: <a href="https://ctan.org/?lang=en">CTAN</a><br>
-        Ask AI for help!!! Chatgpt, Claude, Gemini, ...</p>
-    <h2 style="margin-top: 1rem;">Interesting Links</h2>
-    <p> Are you familiar with <a href="https://cims.nyu.edu/~tjl8195/quiz/frak.html">mathfrak</a>? Test yourself!<br>
-        LaTeX skill test: <a href="https://texnique.xyz/">TEXnique</a></p>
-    <h2 style="margin-top: 3rem;">Gallery</h2>
-    <div class="gallery"> 
-        <div class="gallery-item">
-            <img src="blow up.jpg" alt="blow up">
-            <p class="caption"><a href="blow up.tex" download>blow up</a></p>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="../" aria-label="Rolfsen knot table 8_6, home" title="Rolfsen knot table 8_6">
+                <img class="brand-image" src="../assets/knot-8_6.png" alt="" width="480" height="382">
+            </a>
+            <nav class="site-nav" aria-label="Primary">
+                <a href="./" aria-current="page">LaTeX</a>
+                <a href="../math/">Math</a>
+                <a href="../football/">Football</a>
+                <a href="../others/">Others</a>
+            </nav>
+            <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark theme" aria-pressed="false">
+                <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M20.5 14.2A8.6 8.6 0 1 1 9.8 3.5a7 7 0 0 0 10.7 10.7Z"/>
+                </svg>
+                <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="4.2"/>
+                    <path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/>
+                </svg>
+            </button>
         </div>
-        <div class="gallery-item">
-            <img src="wild knot.jpg" alt="wild knot">
-            <p class="caption"><a href="wild knot.tex" download>wild knot</a></p>
+    </header>
+
+    <main id="main">
+        <section class="page-intro">
+            <div class="container">
+                <h1>LaTeX</h1>
+                <p class="lede">or I should write <img class="latex-logo" src="../assets/latex-logo.svg" alt="LaTeX">?</p>
+            </div>
+        </section>
+
+        <div class="container">
+            <section class="block">
+                <h2>A Simple LaTeX Style</h2>
+                <p>The style is written for pdfLaTeX; with a few small changes it also works under XeLaTeX or LuaLaTeX. If you are new to LaTeX, start with the demo. Need something more elaborate? Contact me on Discord.</p>
+                <div class="actions">
+                    <span class="download">
+                        <a class="text-link" href="hassium.tex" download>Download hassium.tex</a>
+                        <span class="version">v1.5.2</span>
+                    </span>
+                    <a class="text-link text-link--quiet" href="Demo.pdf" target="_blank" rel="noopener">Read the demo<span class="sr-only"> (opens in a new tab)</span></a>
+                    <a class="text-link" href="working-example.zip" download>A working example</a>
+                </div>
+            </section>
+
+            <section class="block">
+                <h2>Useful/Interesting Links</h2>
+                <ul class="link-list">
+                    <li>
+                        <a href="symbols%21%21%21.pdf" target="_blank" rel="noopener">symbols!!!.pdf <span class="arrow" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
+                    </li>
+                    <li>
+                        <a href="https://www.overleaf.com/project" target="_blank" rel="noopener noreferrer">Overleaf <span class="arrow" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
+                    </li>
+                    <li>
+                        <a href="https://detexify.kirelabs.org/" target="_blank" rel="noopener noreferrer">Detexify <span class="arrow" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
+                    </li>
+                    <li>
+                        <a href="https://ctan.org/?lang=en" target="_blank" rel="noopener noreferrer">CTAN <span class="arrow" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
+                    </li>
+                    <li>
+                        <a href="https://texnique.xyz/" target="_blank" rel="noopener noreferrer">TEXnique <span class="arrow" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
+                    </li>
+                    <li>
+                        <a href="https://cims.nyu.edu/~tjl8195/quiz/frak.html" target="_blank" rel="noopener noreferrer">The fraktur quiz <span class="arrow" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
+                    </li>
+                </ul>
+                <p class="ai-line">Always ask your AI assistants! <a href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">ChatGPT</a>, <a href="https://claude.ai/" target="_blank" rel="noopener noreferrer">Claude</a>, <a href="https://www.deepseek.com/en/" target="_blank" rel="noopener noreferrer">Deepseek</a>.</p>
+            </section>
+
+            <section class="block">
+                <h2>Gallery</h2>
+                <div class="gallery">
+                    <figure>
+                        <a href="blow%20up.jpg" data-lightbox data-caption="Blow up">
+                            <img src="blow%20up.jpg" alt="A blow-up construction drawn as a sequence of connected surfaces" loading="lazy" width="1720" height="768">
+                        </a>
+                        <figcaption>
+                            <span>Blow up</span>
+                            <a href="blow%20up.tex" download>.tex</a>
+                        </figcaption>
+                    </figure>
+                    <figure>
+                        <a href="wild%20knot.jpg" data-lightbox data-caption="Wild knot">
+                            <img src="wild%20knot.jpg" alt="A wild knot with an infinite sequence of knotted lobes" loading="lazy" width="1266" height="695">
+                        </a>
+                        <figcaption>
+                            <span>Wild knot</span>
+                            <a href="wild%20knot.tex" download>.tex</a>
+                        </figcaption>
+                    </figure>
+                    <figure>
+                        <a href="Mobius%20strip.jpg" data-lightbox data-caption="Möbius strip">
+                            <img src="Mobius%20strip.jpg" alt="A Möbius strip drawn as a wireframe surface" loading="lazy" width="919" height="549">
+                        </a>
+                        <figcaption>
+                            <span>Möbius strip</span>
+                            <a href="Mobius%20strip.tex" download>.tex</a>
+                        </figcaption>
+                    </figure>
+                    <figure>
+                        <a href="Dehn%20twist.png" data-lightbox data-caption="Dehn twist">
+                            <img src="Dehn%20twist.png" alt="A Dehn twist along a curve on a torus" loading="lazy" width="1116" height="459">
+                        </a>
+                        <figcaption>
+                            <span>Dehn twist</span>
+                            <a href="Dehn%20twist.tex" download>.tex</a>
+                        </figcaption>
+                    </figure>
+                    <figure>
+                        <a href="P(2,-2,3).jpg" data-lightbox data-caption="Pretzel P(2,-2,3) with a command for any pretzel link">
+                            <img src="P(2,-2,3).jpg" alt="Pretzel link P(2,-2,3)" loading="lazy" width="455" height="399">
+                        </a>
+                        <figcaption>
+                            <span>Pretzel P(2,-2,3) with a command for pretzel links</span>
+                            <a href="Pretzel%20link.tex" download>.tex</a>
+                        </figcaption>
+                    </figure>
+                </div>
+            </section>
         </div>
-        <div class="gallery-item">
-            <img src="Mobius strip.jpg" alt="Möbius strip">
-            <p class="caption"><a href="Mobius strip.tex" download>Möbius strip</a></p>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <p>© <span data-year>2026</span> Hassium</p>
+            <a href="https://github.com/Hassiummm/hassium" target="_blank" rel="noopener noreferrer">
+                GitHub <span aria-hidden="true">↗</span>
+                <span class="sr-only">(opens in a new tab)</span>
+            </a>
         </div>
-        <div class="gallery-item">
-            <img src="Dehn twist.png" alt="Dehn twist">
-            <p class="caption"><a href="Dehn twist.tex" download>Dehn twist</a></p>
-        </div>
-    </div>
-    <a href="../" class="back-btn">← Back to Home</a>
+    </footer>
+
+    <script src="../assets/js/site.js" defer></script>
 </body>
 </html>

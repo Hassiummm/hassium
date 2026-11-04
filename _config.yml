@@ -1,0 +1,16 @@
+title: "Rolfsen knot table 8_6"
+description: "Mathematics, LaTeX, and reading groups."
+markdown: kramdown
+
+exclude:
+  - preview.py
+  - README.md
+
+collections:
+  notes:
+    output: false
+  reading_notes:
+    output: false
+  reading_groups:
+    output: true
+    permalink: /math/reading-group/:path/

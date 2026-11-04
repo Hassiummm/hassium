@@ -1,0 +1,85 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reading group — Hassium</title>
+    <meta name="description" content="Reading group.">
+    <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+    <script>
+        (function () {
+            try {
+                var theme = localStorage.getItem("hassium-theme");
+                if (theme !== "light" && theme !== "dark") {
+                    theme = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+                }
+                document.documentElement.setAttribute("data-theme", theme);
+            } catch (error) {
+                document.documentElement.setAttribute("data-theme", "light");
+            }
+        })();
+    </script>
+    <link rel="preload" href="../../assets/fonts/pagella-regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="../../" aria-label="Rolfsen knot table 8_6, home" title="Rolfsen knot table 8_6">
+                <img class="brand-image" src="../../assets/knot-8_6.png" alt="" width="480" height="382">
+            </a>
+            <nav class="site-nav" aria-label="Primary">
+                <a href="../../latex/">LaTeX</a>
+                <a href="../" aria-current="page">Math</a>
+                <a href="../../football/">Football</a>
+                <a href="../../others/">Others</a>
+            </nav>
+            <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark theme" aria-pressed="false">
+                <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M20.5 14.2A8.6 8.6 0 1 1 9.8 3.5a7 7 0 0 0 10.7 10.7Z"/>
+                </svg>
+                <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="4.2"/>
+                    <path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <main id="main">
+        <section class="page-intro">
+            <div class="container">
+                <h1>Reading group</h1>
+            </div>
+        </section>
+
+        <div class="container">
+            <!-- preview:reading-groups-list -->
+            {% assign reading_groups = site.reading_groups | sort: 'date' | reverse %}
+            {% for group in reading_groups %}
+            <a class="entry-row" href="{{ group.slug }}/">
+                <span class="entry-title">{{ group.title }}</span>
+                <span class="entry-meta">{{ group.term }}</span>
+            </a>
+            {% endfor %}
+            <!-- /preview:reading-groups-list -->
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <p>© <span data-year>2026</span> Hassium</p>
+            <a href="https://github.com/Hassiummm/hassium" target="_blank" rel="noopener noreferrer">
+                GitHub <span aria-hidden="true">↗</span>
+                <span class="sr-only">(opens in a new tab)</span>
+            </a>
+        </div>
+    </footer>
+
+    <script src="../../assets/js/site.js" defer></script>
+</body>
+</html>

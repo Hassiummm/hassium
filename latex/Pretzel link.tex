@@ -1,0 +1,86 @@
+\documentclass[border=6pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{knots}
+% Usage: \drawpretzel[<TikZ options>]{p_1,p_2,...,p_n}
+% Positive twists have the southwest--northeast branch over the other.
+% All lengths below are coordinates in cm; no picture scaling is used.
+\makeatletter
+\newcommand{\drawpretzel}[2][]{%
+  \begingroup
+  \def\pretzelPitch{1.05}% horizontal distance between region centres
+  \def\pretzelHalfWidth{0.24}% half the width of a twist region
+  \def\pretzelStep{0.42}% vertical distance between crossings
+  \def\pretzelPadding{0.12}% straight extension beyond the longest stack
+  \def\pretzelCap{0.30}% inner-cap control height (actual rise: 3/4 of this)
+  \def\pretzelOuter{0.34}% outer-closure rise
+  \def\pretzelN{0}%
+  \def\pretzelM{0}%
+  % Accumulate locally; \@for does not group its iterations.
+  \@for\pretzelP:=#2\do{%
+    \pgfmathtruncatemacro{\pretzelN}{\pretzelN+1}%
+    \pgfmathtruncatemacro{\pretzelM}{max(\pretzelM,abs(\pretzelP))}%
+  }%
+  \pgfmathsetmacro{\pretzelH}{\pretzelStep*\pretzelM/2+\pretzelPadding}%
+  \pgfmathsetmacro{\pretzelLast}{\pretzelPitch*(\pretzelN-1)}%
+  \begin{tikzpicture}[
+    line width=0.8pt,line cap=round,line join=round,#1]
+    \foreach \p [count=\i from 0] in {#2}{%
+      \pgfmathtruncatemacro{\n}{abs(\p)}%
+      \pgfmathsetmacro{\pretzelStackTop}{\pretzelStep*\n/2}%
+      \begin{scope}[shift={(\pretzelPitch*\i,0)}]
+        % Centre each stack and extend it to the common endpoints.
+        \foreach \s in {-1,1}{%
+          \draw (\s*\pretzelHalfWidth,\pretzelH)
+            -- (\s*\pretzelHalfWidth,\pretzelStackTop);
+          \draw (\s*\pretzelHalfWidth,-\pretzelStackTop)
+            -- (\s*\pretzelHalfWidth,-\pretzelH);
+        }
+        \ifnum\n>0\relax
+          \foreach \j in {1,...,\n}{%
+            \pgfmathsetmacro{\y}{\pretzelStep*(\n/2-\j+1)}%
+            % A cell is 2*halfwidth wide and step high. Its crossing
+            % is exactly at (0,-step/2), with vertical endpoint tangents.
+            \begin{scope}[shift={(0,\y)}]
+              \begin{knot}[clip width=2.6,clip radius=2.5pt,end tolerance=1pt]
+                \ifnum\p>0\relax\flipcrossings{1}\fi
+                \strand (-\pretzelHalfWidth,0)
+                  .. controls (-\pretzelHalfWidth,-\pretzelStep/3)
+                    and (\pretzelHalfWidth,-2*\pretzelStep/3)
+                  .. (\pretzelHalfWidth,-\pretzelStep);
+                \strand (\pretzelHalfWidth,0)
+                  .. controls (\pretzelHalfWidth,-\pretzelStep/3)
+                    and (-\pretzelHalfWidth,-2*\pretzelStep/3)
+                  .. (-\pretzelHalfWidth,-\pretzelStep);
+              \end{knot}
+            \end{scope}
+          }
+        \fi
+      \end{scope}
+    }
+    % Join adjacent regions at both ends.
+    \ifnum\pretzelN>1\relax
+      \pgfmathtruncatemacro{\pretzelPairs}{\pretzelN-2}%
+      \foreach \i in {0,...,\pretzelPairs}{%
+        \foreach \s in {-1,1}{%
+          \draw (\pretzelPitch*\i+\pretzelHalfWidth,\s*\pretzelH)
+            .. controls +(0,\s*\pretzelCap) and +(0,\s*\pretzelCap)
+            .. ({\pretzelPitch*(\i+1)-\pretzelHalfWidth},\s*\pretzelH);
+        }
+      }
+    \fi
+    % Close the outside with compact rounded corners. Works for n=1.
+    \foreach \s in {-1,1}{%
+      \draw (-\pretzelHalfWidth,\s*\pretzelH)
+        .. controls +(0,\s*0.22) and +(-0.14,0)
+        .. (0,{\s*(\pretzelH+\pretzelOuter)})
+        -- (\pretzelLast,{\s*(\pretzelH+\pretzelOuter)})
+        .. controls +(0.14,0) and +(0,\s*0.22)
+        .. (\pretzelLast+\pretzelHalfWidth,\s*\pretzelH);
+    }
+  \end{tikzpicture}%
+  \endgroup
+}
+\makeatother
+\begin{document}
+\drawpretzel{2,-2,3}
+\end{document}

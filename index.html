@@ -1,46 +1,110 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" href="https://unpkg.com/latex.css/style.min.css">
-    <style>
-        nav {
-            display: flex;
-            justify-content: center;
-            gap: 100px;
-            margin-top: 2rem;
-            margin-bottom: 4rem;
-            font-family: sans-serif;
-            font-weight: bold;
-            font-size: 1.5rem;
-        }
-        nav a {
-            text-decoration: none;
-            color: #333;
-            letter-spacing: 2px;
-        }
-        nav a:hover {
-            color: #888;
-        }
-        .center-text {
-            text-align: center;
-            margin-top: 100px;
-        }
-    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hassium — Mathematics &amp; LaTeX</title>
+    <meta name="description" content="Hassium's personal website: notes on mathematics, a LaTeX style, and a few other things.">
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <script>
+        (function () {
+            try {
+                var theme = localStorage.getItem("hassium-theme");
+                if (theme !== "light" && theme !== "dark") {
+                    theme = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+                }
+                document.documentElement.setAttribute("data-theme", theme);
+            } catch (error) {
+                document.documentElement.setAttribute("data-theme", "light");
+            }
+        })();
+    </script>
+    <link rel="preload" href="assets/fonts/pagella-regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="assets/css/site.css">
 </head>
 <body>
+    <a class="skip-link" href="#main">Skip to content</a>
 
-    <nav>
-        <a href="latex/">LATEX</a>
-        <a href="math/">MATH</a>
-        <a href="others/">OTHERS</a>
-    </nav>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="./" aria-label="Rolfsen knot table 8_6, home" title="Rolfsen knot table 8_6">
+                <img class="brand-image" src="assets/knot-8_6.png" alt="" width="480" height="382">
+            </a>
+            <nav class="site-nav" aria-label="Primary">
+                <a href="latex/">LaTeX</a>
+                <a href="math/">Math</a>
+                <a href="football/">Football</a>
+                <a href="others/">Others</a>
+            </nav>
+            <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark theme" aria-pressed="false">
+                <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M20.5 14.2A8.6 8.6 0 1 1 9.8 3.5a7 7 0 0 0 10.7 10.7Z"/>
+                </svg>
+                <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="4.2"/>
+                    <path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/>
+                </svg>
+            </button>
+        </div>
+    </header>
 
-    <div class="center-text">
-        <h1>Welcome to Hassium's webpage!</h1>
-    </div>
+    <main id="main">
+        <section class="intro">
+            <div class="container intro-grid">
+                <div>
+                    <h1>Welcome to<br><em>Hassium</em>’s webpage.</h1>
+                </div>
+                <img class="intro-figure" src="latex/blow%20up.jpg" alt="A blow up construction drawn in LaTeX" width="1720" height="768" fetchpriority="high" decoding="async">
+            </div>
+        </section>
 
+        <nav class="container index" aria-label="Sections">
+            <div class="index-list">
+                <a class="index-link" href="latex/">
+                    <span class="index-name">LaTeX</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M5 12h14M13 6l6 6-6 6"/>
+                    </svg>
+                </a>
+                <a class="index-link" href="math/">
+                    <span class="index-name">Mathematics</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M5 12h14M13 6l6 6-6 6"/>
+                    </svg>
+                </a>
+                <a class="index-link" href="football/">
+                    <span class="index-name">Football</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M5 12h14M13 6l6 6-6 6"/>
+                    </svg>
+                </a>
+                <a class="index-link" href="others/">
+                    <span class="index-name">Others</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M5 12h14M13 6l6 6-6 6"/>
+                    </svg>
+                </a>
+            </div>
+        </nav>
+
+        <section class="closing">
+            <div class="container">
+                <blockquote>“Mathematics is the art of giving the same name to different things.”</blockquote>
+                <p>——— Henri Poincaré</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <p>© <span data-year>2026</span> Hassium</p>
+            <a href="https://github.com/Hassiummm/hassium" target="_blank" rel="noopener noreferrer">
+                GitHub <span aria-hidden="true">↗</span>
+                <span class="sr-only">(opens in a new tab)</span>
+            </a>
+        </div>
+    </footer>
+
+    <script src="assets/js/site.js" defer></script>
 </body>
 </html>

@@ -1,46 +1,87 @@
+---
+---
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <title>Notes</title>
-    <link rel="stylesheet" href="https://unpkg.com/latex.css/style.min.css">
-    <style>
-        body {
-            max-width: 100%;
-            margin-left: 0;
-            padding-left: 3rem;
-        }
-        h2 {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.5;
-        }
-        p {
-            font-size: 1.5rem; 
-            line-height: 2.2; 
-            margin-bottom: 2rem;
-        }
-        .back-btn {
-            display: inline-block;
-            margin-top: 3rem;
-            margin-bottom: 2rem;
-            padding: 10px 24px;
-            color: #000000;
-            text-decoration: none;
-            font-family: inherit;
-            font-size: 1.2rem;
-            border: 1px solid #000000;
-            transition: all 0.2s ease;
-        }
-        .back-btn:hover {
-            background-color: #000000;
-            color: #ffffff;
-        }
-    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Notes — Hassium</title>
+    <meta name="description" content="A list of mathematics notes by Hassium.">
+    <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+    <script>
+        (function () {
+            try {
+                var theme = localStorage.getItem("hassium-theme");
+                if (theme !== "light" && theme !== "dark") {
+                    theme = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+                }
+                document.documentElement.setAttribute("data-theme", theme);
+            } catch (error) {
+                document.documentElement.setAttribute("data-theme", "light");
+            }
+        })();
+    </script>
+    <link rel="preload" href="../../assets/fonts/pagella-regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../assets/css/site.css">
 </head>
 <body>
-    <h2 style="margin-top: 1rem;">General Information</h2>
-    <p> Nothing.</p>
-    <a href="../" class="back-btn">← Back to Home</a>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="../../" aria-label="Rolfsen knot table 8_6, home" title="Rolfsen knot table 8_6">
+                <img class="brand-image" src="../../assets/knot-8_6.png" alt="" width="480" height="382">
+            </a>
+            <nav class="site-nav" aria-label="Primary">
+                <a href="../../latex/">LaTeX</a>
+                <a href="../" aria-current="page">Math</a>
+                <a href="../../football/">Football</a>
+                <a href="../../others/">Others</a>
+            </nav>
+            <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark theme" aria-pressed="false">
+                <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M20.5 14.2A8.6 8.6 0 1 1 9.8 3.5a7 7 0 0 0 10.7 10.7Z"/>
+                </svg>
+                <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="4.2"/>
+                    <path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <main id="main">
+        <section class="page-intro">
+            <div class="container">
+                <h1>Notes</h1>
+                <p class="lede">A list of topics I have written up.</p>
+            </div>
+        </section>
+
+        <div class="container">
+            <!-- preview:notes-list -->
+            {% assign notes = site.notes | sort: 'date' | reverse %}
+            {% for note in notes %}
+            <div class="entry-row entry-row--static">
+                <span class="entry-title">{{ note.title }}</span>
+                <span class="entry-meta">No. {{ note.number }}</span>
+            </div>
+            {% endfor %}
+            <!-- /preview:notes-list -->
+            <p class="note-empty">More notes will be added as they are written.</p>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <p>© <span data-year>2026</span> Hassium</p>
+            <a href="https://github.com/Hassiummm/hassium" target="_blank" rel="noopener noreferrer">
+                GitHub <span aria-hidden="true">↗</span>
+                <span class="sr-only">(opens in a new tab)</span>
+            </a>
+        </div>
+    </footer>
+
+    <script src="../../assets/js/site.js" defer></script>
 </body>
 </html>

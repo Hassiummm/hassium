@@ -1,63 +1,205 @@
+---
+---
+{% assign latest_reading_note = site.reading_notes | sort: 'date' | last %}
+{% assign latest_note = site.notes | sort: 'date' | last %}
+{% assign latest_group = site.reading_groups | sort: 'date' | last %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <title>Math</title>
-    <link rel="stylesheet" href="https://unpkg.com/latex.css/style.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <style>
-        body {
-            max-width: 100%;
-            margin-left: 0;
-            padding-left: 3rem;
-        }
-        h2 {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.5;
-        }
-        p {
-            font-size: 1.5rem; 
-            line-height: 2.2; 
-            margin-bottom: 2rem;
-        }
-        .back-btn {
-            display: inline-block;
-            margin-top: 3rem;
-            margin-bottom: 2rem;
-            padding: 10px 24px;
-            color: #000000;
-            text-decoration: none;
-            font-family: inherit;
-            font-size: 1.2rem;
-            border: 1px solid #000000;
-            transition: all 0.2s ease;
-        }
-        .back-btn:hover {
-            background-color: #000000;
-            color: #ffffff;
-        }
-    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mathematics — Hassium</title>
+    <meta name="description" content="Mathematics notes, a reading list, links, and a few quotes.">
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+    <script>
+        (function () {
+            try {
+                var theme = localStorage.getItem("hassium-theme");
+                if (theme !== "light" && theme !== "dark") {
+                    theme = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+                }
+                document.documentElement.setAttribute("data-theme", theme);
+            } catch (error) {
+                document.documentElement.setAttribute("data-theme", "light");
+            }
+        })();
+    </script>
+    <link rel="preload" href="../assets/fonts/pagella-regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../assets/css/site.css">
 </head>
 <body>
-    <h2 style="margin-top: 1rem;">Some Notes</h2>
-    <p> I enjoy writing notes for various kinds of math. There are basically three types of notes:<br>
-        (1) <a href="notes/index.html">Reading Notes</a>: The notes I made while reading textbooks (in my reading list). Those notes solely follow the structures of books with slight modifications to improve (my own) readibility.<br>
-        (2) Quick Tours: Short introductory notes to specific topics.<br>
-        (3) Long Notes: Those notes are expected to have more than 30 pages! </p>
-    <h2 style="margin-top: 1rem;">Reading List</h2>
-    <p> Here is a <a href="Reading List Math.pdf">reading list</a> based on my interests.</p>
-    <h2 style="margin-top: 1rem;">Interesting Links</h2>
-    <p> <a href="https://math.jhu.edu/~savitt/GTM.html">GTM</a> test: Which GTM are you?<br>
-    Proofs are <a href="https://www.theproofistrivial.com/">trivial!</a><br>
-    Why LADR? Sheldon Axler's answer: <a href="https://www.reddit.com/r/math/comments/15ahoci/why_does_sheldon_axler_hate_determinants/">here</a><br></p>
-    <h2 style="margin-top: 1rem;">&infin;-Quotes</h2>
-    <p> Pierre Deligne: An absence of proof is a challenge; an absence of definition is deadly.<br>
-        Henri Poincaré: Mathematics is the art of giving the same name to different things.<br>
-        André Weil: Every mathematician worthy of the name has experienced, if only rarely, the state of lucid exaltation in which one thought succeeds another as if miraculously, and in which the unconscious seems to play a role.<br>
-        Michael Atiyah: The aim of mathematics is to explain as much as possible in simple terms.<br>
-        Emil Artin: It is my experience that proofs involving matrices can be shortened by 50% if one throws the matrices out.<br>
-        John Tate: A lifetime of mathematical activity is a reward in itself.</p>
-    <a href="../" class="back-btn">← Back to Home</a>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="../" aria-label="Rolfsen knot table 8_6, home" title="Rolfsen knot table 8_6">
+                <img class="brand-image" src="../assets/knot-8_6.png" alt="" width="480" height="382">
+            </a>
+            <nav class="site-nav" aria-label="Primary">
+                <a href="../latex/">LaTeX</a>
+                <a href="./" aria-current="page">Math</a>
+                <a href="../football/">Football</a>
+                <a href="../others/">Others</a>
+            </nav>
+            <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark theme" aria-pressed="false">
+                <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M20.5 14.2A8.6 8.6 0 1 1 9.8 3.5a7 7 0 0 0 10.7 10.7Z"/>
+                </svg>
+                <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="4.2"/>
+                    <path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <main id="main">
+        <section class="page-intro">
+            <div class="container">
+                <h1>Mathematics</h1>
+                <p class="lede">is an art packaged by logic</p>
+            </div>
+        </section>
+
+        <div class="container">
+            <section class="block" id="reading-notes">
+                <div class="block-head">
+                    <h2>Reading notes</h2>
+                    <a class="view-all" href="reading-notes/">View all →</a>
+                </div>
+                <!-- preview:latest-reading-notes -->
+                {% if latest_reading_note %}
+                <a class="entry-row" href="reading-notes/">
+                    <span class="entry-title">{{ latest_reading_note.title }}</span>
+                    <span class="entry-meta">{{ latest_reading_note.date | date: "%b %Y" }}</span>
+                </a>
+                {% endif %}
+                <!-- /preview:latest-reading-notes -->
+            </section>
+
+            <section class="block" id="notes">
+                <div class="block-head">
+                    <h2>Notes</h2>
+                    <a class="view-all" href="notes/">View all →</a>
+                </div>
+                <p>I enjoy writing notes for various kinds of math. The numbering has nothing to do with the difficulty.</p>
+                <!-- preview:latest-notes -->
+                {% if latest_note %}
+                <a class="entry-row" href="notes/">
+                    <span class="entry-title">{{ latest_note.title }}</span>
+                    <span class="entry-meta">No. {{ latest_note.number }}</span>
+                </a>
+                {% endif %}
+                <!-- /preview:latest-notes -->
+            </section>
+
+            <section class="block" id="reading-group">
+                <div class="block-head">
+                    <h2>Reading group</h2>
+                    <a class="view-all" href="reading-group/">View all →</a>
+                </div>
+                <!-- preview:latest-reading-group -->
+                {% if latest_group %}
+                <a class="entry-row" href="reading-group/{{ latest_group.slug }}/">
+                    <span class="entry-title">{{ latest_group.title }}</span>
+                    <span class="entry-meta">{{ latest_group.term }}</span>
+                </a>
+                {% endif %}
+                <!-- /preview:latest-reading-group -->
+            </section>
+
+            <section class="block" id="links">
+                <h2>Links</h2>
+                <ul class="link-list">
+                    <li>
+                        <a href="Reading%20List%20Math.pdf" target="_blank" rel="noopener">Reading List Math.pdf <span class="arrow" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
+                    </li>
+                    <li>
+                        <a href="https://math.jhu.edu/~savitt/GTM.html" target="_blank" rel="noopener noreferrer">Which GTM are you? <span class="arrow" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
+                    </li>
+                    <li>
+                        <a href="https://www.theproofistrivial.com/" target="_blank" rel="noopener noreferrer">Proofs are trivial! <span class="arrow" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
+                    </li>
+                    <li>
+                        <a href="https://www.reddit.com/r/math/comments/15ahoci/why_does_sheldon_axler_hate_determinants/" target="_blank" rel="noopener noreferrer">Why LADR? <span class="arrow" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="block" id="quotes">
+                <h2><img class="infinity" src="../assets/infinity.svg" alt="Infinity">-Quotes</h2>
+                <div class="quotes">
+                    <figure class="quote">
+                        <blockquote>“A different image came to me a few weeks ago. The unknown thing to be known appeared to me as some stretch of earth or hard marl, resisting penetration ... the sea advances insensibly in silence, nothing seems to happen, nothing moves, the water is so far off you hardly hear it ... yet it finally surrounds the resistant substance.”</blockquote>
+                        <figcaption>— Alexander Grothendieck</figcaption>
+                    </figure>
+                    <figure class="quote">
+                        <blockquote>“Every mathematician worthy of the name has experienced, if only rarely, the state of lucid exaltation in which one thought succeeds another as if miraculously, and in which the unconscious seems to play a role.”</blockquote>
+                        <figcaption>— André Weil</figcaption>
+                    </figure>
+                    <figure class="quote">
+                        <blockquote>“An absence of proof is a challenge; an absence of definition is deadly.”</blockquote>
+                        <figcaption>— Pierre Deligne</figcaption>
+                    </figure>
+                    <figure class="quote">
+                        <blockquote>“Mathematics is the art of giving the same name to different things.”</blockquote>
+                        <figcaption>— Henri Poincaré</figcaption>
+                    </figure>
+                    <figure class="quote">
+                        <blockquote>“Wir müssen wissen. Wir werden wissen.”</blockquote>
+                        <figcaption>— David Hilbert</figcaption>
+                    </figure>
+                    <figure class="quote">
+                        <blockquote>“Discovery is the privilege of the child: the child who has no fear of being once again wrong, of looking like an idiot, of not being serious, of not doing things like everyone else.”</blockquote>
+                        <figcaption>— Alexander Grothendieck</figcaption>
+                    </figure>
+                    <figure class="quote">
+                        <blockquote>“I am not really doing research, just trying to cultivate myself.”</blockquote>
+                        <figcaption>— Alexander Grothendieck</figcaption>
+                    </figure>
+                    <figure class="quote">
+                        <blockquote>“Ich habe das symbolische Rechnen mit Stumpf und Stil verlernt.”</blockquote>
+                        <figcaption>— Emmy Noether</figcaption>
+                    </figure>
+                    <figure class="quote">
+                        <blockquote>“The aim of mathematics is to explain as much as possible in simple terms.”</blockquote>
+                        <figcaption>— Michael Atiyah</figcaption>
+                    </figure>
+                    <figure class="quote">
+                        <blockquote>“Mathematics is not about numbers, equations, computations, or algorithms: it is about understanding.”</blockquote>
+                        <figcaption>— William Thurston</figcaption>
+                    </figure>
+                    <figure class="quote">
+                        <blockquote>“It is my experience that proofs involving matrices can be shortened by 50% if one throws the matrices out.”</blockquote>
+                        <figcaption>— Emil Artin</figcaption>
+                    </figure>
+                    <figure class="quote">
+                        <blockquote>“A lifetime of mathematical activity is a reward in itself.”</blockquote>
+                        <figcaption>— John Tate</figcaption>
+                    </figure>
+                    <figure class="quote">
+                        <blockquote>“Understanding what and why did not work may be more instructive than celebrating our successes.”</blockquote>
+                        <figcaption>— Mikhail Gromov</figcaption>
+                    </figure>
+                    <figure class="quote">
+                        <blockquote>“You know that I write slowly. This is chiefly because I am never satisfied until I have said as much as possible in a few words, and writing briefly takes far more time than writing at length.”</blockquote>
+                        <figcaption>— Carl Gauss</figcaption>
+                    </figure>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <p>© <span data-year>2026</span> Hassium</p>
+            <a href="https://github.com/Hassiummm/hassium" target="_blank" rel="noopener noreferrer">
+                GitHub <span aria-hidden="true">↗</span>
+                <span class="sr-only">(opens in a new tab)</span>
+            </a>
+        </div>
+    </footer>
+
+    <script src="../assets/js/site.js" defer></script>
 </body>
 </html>

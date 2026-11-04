@@ -50,7 +50,7 @@
     --font-display: "Pagella", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
     --font-body: "Pagella", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
 
-    --max-width: 960px;
+    --max-width: 1120px;
 }
 
 html[data-theme="dark"] {
@@ -486,7 +486,7 @@ html[data-theme="dark"] .infinity {
 }
 
 .block > p {
-    max-width: 84ch;
+    max-width: none;
 }
 
 .block .actions {
